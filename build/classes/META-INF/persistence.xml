@@ -5,7 +5,7 @@
     <class>model.teste</class>
     <class>relatoriosView.venda.categoria.VendaItensProdutoCategoria</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/sisdb"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/tabacaria"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.password" value="rocca23"/>

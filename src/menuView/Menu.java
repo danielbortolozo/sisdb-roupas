@@ -968,9 +968,7 @@ public class Menu extends javax.swing.JFrame {
               unidadeView.setVisible(true);
               unidadeView.setTitle("Cadastro de Unidade"); 
            }else
-              JOptionPane.showMessageDialog(null, "Você não têm permissão. Acesso Negado."); 
-                
-        
+              JOptionPane.showMessageDialog(null, "Você não têm permissão. Acesso Negado.");        
     }//GEN-LAST:event_jmenuUnidadeActionPerformed
 
     private void jmenuMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuMarcaActionPerformed
