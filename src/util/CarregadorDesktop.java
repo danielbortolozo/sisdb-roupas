@@ -16,7 +16,7 @@ import javax.swing.JDesktopPane;
  */
 public class CarregadorDesktop extends JDesktopPane {
     
-    Image img = new ImageIcon(getClass().getResource("/imagens/pvGrande1.jpeg")).getImage();
+    Image img = new ImageIcon(getClass().getResource("/imagens/pvGrande.png")).getImage();
     
     @Override
     public void paintChildren(Graphics g){
