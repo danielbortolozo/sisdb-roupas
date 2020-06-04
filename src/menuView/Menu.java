@@ -1276,6 +1276,11 @@ public class Menu extends javax.swing.JFrame {
 
     private void jbtClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtClientesActionPerformed
         
+        telaClientes();    
+ 
+    }//GEN-LAST:event_jbtClientesActionPerformed
+
+    public void telaClientes () {
         if (colaborador.getColaborad().getTipo_usuario().equals("ADMIN")) {
            if (this.cliView == null)
                this.cliView = new ClienteView();
@@ -1289,10 +1294,8 @@ public class Menu extends javax.swing.JFrame {
               jmenuCliente.setEnabled(false);           
             }else
               JOptionPane.showMessageDialog(null, "Você não têm permissão. Acesso Negado."); 
+    }
     
- 
-    }//GEN-LAST:event_jbtClientesActionPerformed
-
     private void jmenuComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuComplementoActionPerformed
         //Este recurso de complemento é para pizzaria, no caso de
         //mais azeitona, gelo, milho e etc.

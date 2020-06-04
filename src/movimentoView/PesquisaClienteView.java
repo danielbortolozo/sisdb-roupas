@@ -5,11 +5,13 @@
  */
 package movimentoView;
 
+import cadastroView.ClienteView;
 import dao.ClienteDAO;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import menuView.Menu;
 import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;
@@ -32,7 +34,7 @@ public class PesquisaClienteView extends javax.swing.JDialog {
     List<PessoaJuridica> listaClienteJuridico;
     String tipoForm = null;
     public PesquisaClienteView(java.awt.Frame parent, boolean modal, String tipoForm) {
-        super(parent, modal);
+        super(parent, modal);        
         initComponents();
         carregaTablePessoa();
         this.tipoForm = tipoForm;
@@ -51,6 +53,7 @@ public class PesquisaClienteView extends javax.swing.JDialog {
         rowSorterToStringConverter1 = new converter.RowSorterToStringConverter();
         jPanel1 = new javax.swing.JPanel();
         jtfPesquisa = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -78,19 +81,31 @@ public class PesquisaClienteView extends javax.swing.JDialog {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Sync.png"))); // NOI18N
+        jButton2.setText("Atualizar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jtfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jtfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -146,7 +161,7 @@ public class PesquisaClienteView extends javax.swing.JDialog {
             }
         });
 
-        jbtAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Create.png"))); // NOI18N
+        jbtAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Down.png"))); // NOI18N
         jbtAdicionar.setText("Adicinar");
         jbtAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,7 +179,7 @@ public class PesquisaClienteView extends javax.swing.JDialog {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -208,7 +223,8 @@ public class PesquisaClienteView extends javax.swing.JDialog {
 
     private void jbtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdicionarActionPerformed
        
-      
+                
+        try {
         Long idPessoa = Long.parseLong(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
         
         
@@ -229,6 +245,9 @@ public class PesquisaClienteView extends javax.swing.JDialog {
                 jButton1ActionPerformed(null);
             }
         }
+        }catch (Exception ex){            
+            JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE");            
+        } 
 
     }//GEN-LAST:event_jbtAdicionarActionPerformed
 
@@ -271,12 +290,17 @@ public class PesquisaClienteView extends javax.swing.JDialog {
         } 
     }//GEN-LAST:event_jButton1KeyPressed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        carregaTablePessoa();
+        jtfPesquisa.requestFocus();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     
         
      private void carregaTablePessoa() {
 
    
-
+         System.out.println("Carreguie os clientes...");
         DefaultTableModel amodel = (DefaultTableModel) jTable1.getModel();
         amodel.setNumRows(0);
         //List<PessoaFisica> pf = new List<PessoaFisica>() {};
@@ -305,15 +329,13 @@ public class PesquisaClienteView extends javax.swing.JDialog {
                             
                     }
                    
-                }
-
-            
+                } 
 
         }
     }
         
-        
-        
+      
+      
 
     
     
@@ -364,6 +386,7 @@ public class PesquisaClienteView extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;

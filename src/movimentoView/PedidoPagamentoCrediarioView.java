@@ -559,7 +559,7 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
                 tipoPagamento = jcbFormaPagto.getSelectedItem().toString();
                 
                 if (tipoPagamento.equals("CREDIARIO")){
-                   JOptionPane.showMessageDialog(null, "Este tipo de pagamento já é um Crediário.");
+                   JOptionPane.showMessageDialog(null, "Tipo de pagamento inválido.");
                    jtfVlRecebido.setEnabled(false);
                    return;
                 }else    
@@ -936,7 +936,7 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
             
             
              if (pedPag.getId() == null){
-                 System.out.println("pedPagamento idPedido ="+pedPag.getPedido().getId());
+                // System.out.println("pedPagamento idPedido ="+pedPag.getPedido().getId());
                 pedPag = pedPagDAO.salvar(pedPag);
                 }else
                    pedPag = pedPagDAO.alterar(pedPag);
@@ -966,10 +966,7 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
             jButton2ActionPerformed(evt);
             
                 
-        }        
-        
-       
-            
+        }             
     
 
     }//GEN-LAST:event_jbtFinalizarActionPerformed

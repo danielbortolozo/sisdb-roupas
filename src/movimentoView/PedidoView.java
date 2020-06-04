@@ -541,9 +541,7 @@ public class PedidoView extends javax.swing.JDialog {
         }else{
            JOptionPane.showMessageDialog(null, "Exclua o Pedido, ou finaliza com algum /n"
                    + " tipo de pagamento para Sair");
-        }
-        
-            
+        }           
     }//GEN-LAST:event_jbtSairActionPerformed
 
     private void jbtPesquisaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaProdutoActionPerformed

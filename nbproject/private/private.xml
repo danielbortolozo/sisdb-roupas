@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/META-INF/persistence.xml</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/menuView/Menu.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/movimentoView/PedidoView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/movimentoView/PedidoView1.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/movimentoView/RecebimentoCrediarioView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/movimentoView/PesquisaClienteView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/movimentoView/PedidoCrediarioView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/movimentoView/PedidoRecebeCrediarioView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/movimentoView/PedidoCreditoDiferencaView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/movimentoView/PedidoPagamentoCrediarioView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/cadastroView/ClienteView.java</file>
         </group>
     </open-files>
 </project-private>

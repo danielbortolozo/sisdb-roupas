@@ -264,7 +264,7 @@ public final class ClienteView extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa Cliente"));
 
-        jtfPesquisaCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jtfPesquisaCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtfPesquisaCliente.setNextFocusableComponent(jbtNovo);
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${rowSorter}"), jtfPesquisaCliente, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -880,6 +880,7 @@ public final class ClienteView extends javax.swing.JFrame {
 
         cpfLabel8.setText("CRÉDITO");
 
+        jtfCreditoCliente.setEditable(false);
         jtfCreditoCliente.setBackground(new java.awt.Color(249, 246, 145));
         jtfCreditoCliente.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jtfCreditoCliente.setText("0,00");
@@ -1273,7 +1274,7 @@ public final class ClienteView extends javax.swing.JFrame {
         jftfDataCadastro.setEditable(false);
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy"); //você pode usar outras máscaras 
         Date y = new Date();
-        jftfDataCadastro.setValue(y);
+        jftfDataCadastro.setValue(sdf1.format(y));
    //     jcbTipoCliente.setEnabled(true);
         // jTabbedPane1.setEnabled(true);
         jrbFisica.setSelected(true);
@@ -2219,15 +2220,19 @@ public final class ClienteView extends javax.swing.JFrame {
             }
             if (jftfDt_EmissaoRG.getText() == null || jftfDt_EmissaoRG.getText().equals("")) {               
                 jftfDt_EmissaoRG.setText(null);
-            } else {
-               
+            } else {               
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 try {
                     pf.setData_emissao((sdf.parse(jftfDt_EmissaoRG.getText())));
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, "Data Inválida!!!");
                 }
-            }         
+            }
+            if (jtfLimiteCredito.getText().equals("") || jtfLimiteCredito.getText().equals("0")){
+                jtfLimiteCredito.setText("100,00");
+                jtfCreditoCliente.setText("100,00");
+            }
+            
         } else 
             if (jrbJuridico.isSelected()) { 
                pj.setTipo("J");
