@@ -540,7 +540,7 @@ public final class ClienteView extends javax.swing.JFrame {
 
         orgaoRgLabel1.setText("EMISSÃO RG");
 
-        jftfDt_EmissaoRG.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        jftfDt_EmissaoRG.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         jftfDt_EmissaoRG.setEnabled(false);
         jftfDt_EmissaoRG.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -550,7 +550,7 @@ public final class ClienteView extends javax.swing.JFrame {
 
         jLabel3.setText("DATA NASCIMENTO");
 
-        jftfNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        jftfNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         jftfNascimento.setEnabled(false);
         jftfNascimento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {

@@ -1067,13 +1067,6 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
          }
          jcbFormaPagto.setSelectedIndex(-1);
     }
-    
-    
-    
-    
-    
-    
-    
     /**
      * @param args the command line arguments
      */

@@ -177,7 +177,7 @@ public final class ColaboradorView extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa Colaborador"));
 
-        jtfPesquisaCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jtfPesquisaCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtfPesquisaCliente.setNextFocusableComponent(jbtNovo);
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${rowSorter}"), jtfPesquisaCliente, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -479,7 +479,7 @@ public final class ColaboradorView extends javax.swing.JInternalFrame {
 
         orgaoRgLabel1.setText("EMISSÃO RG");
 
-        jftfDt_EmissaoRG.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        jftfDt_EmissaoRG.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         jftfDt_EmissaoRG.setEnabled(false);
         jftfDt_EmissaoRG.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -599,7 +599,7 @@ public final class ColaboradorView extends javax.swing.JInternalFrame {
 
         jLabel3.setText("DATA  ADMISSÃO");
 
-        jtfDt_Admissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        jtfDt_Admissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         jtfDt_Admissao.setEnabled(false);
         jtfDt_Admissao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -651,18 +651,20 @@ public final class ColaboradorView extends javax.swing.JInternalFrame {
                                 .addGap(70, 70, 70)
                                 .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel9)
-                                    .addComponent(jtfDt_Admissao, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cpfLabel6)
                                     .addComponent(jtfRedSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                                    .addComponent(jtfUltimoAcesso))))
+                                    .addComponent(jtfUltimoAcesso)
+                                    .addComponent(jtfDt_Admissao))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelLoginLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(0, 48, Short.MAX_VALUE))
                             .addComponent(jtfDt_Demissao)))
                     .addComponent(jcbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cpfLabel5)
                     .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanelLoginLayout.setVerticalGroup(
             jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
