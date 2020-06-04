@@ -72,83 +72,9 @@ public final class ClienteView extends javax.swing.JFrame {
         jTabbedPane1.setEnabledAt(0, false);
         jTabbedPane1.setSelectedIndex(0);
         jtfPesquisaCliente.setEnabled(true);
-       // jcbTipoCliente.setSelectedIndex(-1);
        
         jtfPesquisaCliente.requestFocus();
-//        jtfNome.setDocument(new FixedLengthDocument(30));
         carregaTablePessoa();
-     //   jrbFisicoPesquisa.setSelected(true);
-     //   jrbFisicoPesquisaMouseClicked(null);
-    //    jtfPesquisaCliente.setEnabled(true);
-        // jtfPesquisaCliente.requestFocus();
-        // jbtCancelarActionPerformed(null);
-        /*
-         EventQueue queue = new EventQueue(){
-         protected void dispatchEvent(final AWTEvent event){
-         super.dispatchEvent(event);
-         String a[];
-         String tecla[];
-         if (!event.paramString().equals("")){
-         if (event.paramString().substring(0, 5).equals("KEY_P")){
-         a = event.paramString().split(",");
-         tecla = a[1].split("=");
-         System.out.println("btn = "+tecla[1]);
-         setTecla1(tecla[1]);
-         //tecla1[1] == tecla[1];
-         switch (Integer.parseInt(tecla[1])){
-         case 112:
-                              
-         JOptionPane.showMessageDialog(null, "F1");
-         break;
-         case 113:
-         JOptionPane.showMessageDialog(null, "F2");
-         break;
-         case 114:
-         JOptionPane.showMessageDialog(null, "F3");
-         break;
-         case 115:
-         JOptionPane.showMessageDialog(null, "F4");
-         break;
-         case 116:
-         JOptionPane.showMessageDialog(null, "F5");
-         break;
-         case 117: //F6 Cancela Item Generico
-         {
-         String item = JOptionPane.showInputDialog("Qual item deseja cancelar ?");
-         //   BemaECF.cancelaItemGenerico(item);
-         //   v.insereItemCancelado(item);
-         break;
-         }
-         case 118: //F7 Cancela Último Item
-         //  v.insereItemCancelado("Anterior");
-         //  BemaECF.cancelaItemAnterior();
-         break;
-         case 119:
-         JOptionPane.showMessageDialog(null, "F8");
-         break;
-         case 120:
-         JOptionPane.showMessageDialog(null, "F9");
-         break;
-         case 121: //F10 Desconto
-         //  v.vlrDesconto = JOptionPane.showInputDialog("Digite o valor do Desconto R$ ");
-
-
-         break;
-         case 122: //F11
-         // JOptionPane.showMessageDialog(null, "F11");
-         //    BemaECF.abreCupom();
-         break;
-         case 123:
-         //   v.fechaCupom();
-         break;
-         }
-         }
-         }
-         }
-         };
-         Toolkit.getDefaultToolkit().getSystemEventQueue().push(queue);
-         */
-
     }
 
     /**
@@ -1267,15 +1193,12 @@ public final class ClienteView extends javax.swing.JFrame {
         jbtCancelarActionPerformed(evt);
         DefaultTableModel amodel = (DefaultTableModel) jTable1.getModel();
         amodel.setNumRows(0);
-       
-        
+     
         jftfDataCadastro.setEnabled(true);
         jftfDataCadastro.setEditable(false);
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy"); //você pode usar outras máscaras 
         Date y = new Date();
         jftfDataCadastro.setValue(sdf1.format(y));
-   //     jcbTipoCliente.setEnabled(true);
-        // jTabbedPane1.setEnabled(true);
         jrbFisica.setSelected(true);
         jTabbedPane1.setEnabledAt(0, true);
         jTabbedPane1.setEnabledAt(1, false);
@@ -1283,23 +1206,14 @@ public final class ClienteView extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(0);
         jbtCancelar.setEnabled(true);
         jbtNovo.setEnabled(false);
-
         jtfPesquisaCliente.setEnabled(false);
         jtfNome.setEnabled(true);
         jrbFisica.setEnabled(true);
         jrbJuridico.setEnabled(true);
-        //Criando Formulário EnderecoView
-     //   enderecoView = new EnderecoView(new java.awt.Frame(), true);
-     //   enderecoView.jtfLogradouro.setEnabled(true);
-     //   enderecoView.setFormulario("cliente");
-        //Criando Formulário ContatoView
-    //    contatoView = new ContatoView(new java.awt.Frame(), true);
-        // contatoView.jtfDescricao.setEnabled(true);
         jpanelPessoaFisi.setEnabled(true);
         jtfNome.requestFocus();
-        //jrbFisica.requestFocus();
-        //   jcbTipoCliente.requestFocus();
         jtfLimiteCredito.setText("0");
+        jrbFisica.doClick();
         
         pj = new PessoaJuridica();
         pf = new PessoaFisica();
@@ -1378,12 +1292,7 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfOrgaoRgFocusLost
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-
-        // TODO add your handling code here:
         salvar();
-
-       // jbtCancelarActionPerformed(evt);
-
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jtfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNomeKeyTyped
@@ -1409,12 +1318,8 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfNomeKeyPressed
 
     private void jtfEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfEmailKeyPressed
-        // TODO add your handling code here:
-
         if (evt.getKeyCode() == evt.VK_ENTER) {
-
             if (jtfEmail.getText().equals("")) {
-
                 jtfSite.setEnabled(true);
                 jtfSite.requestFocus();
             } else {
@@ -1422,34 +1327,16 @@ public final class ClienteView extends javax.swing.JFrame {
                 jtfSite.setEnabled(true);
                 jtfSite.requestFocus();
             }
-
         }
-
     }//GEN-LAST:event_jtfEmailKeyPressed
-
-//    if (evt.getKeyCode() == evt.VK_ENTER){
-//            jTabbedPane1.setEnabledAt(1, true);
-//            jTabbedPane1.setSelectedIndex(1);
-//               
-//            if (jrbFisica.isSelected()){
-//               jtfCpf.setEnabled(true);
-//               jtfCpf.requestFocus();
-//            }else{
-//                  jtfCNPJ.setEnabled(true);
-//                  jtfCNPJ.requestFocus();
-//            }
-//        
-//         }jtfSite.setText(jtfSite.getText().toLowerCase());
 
     private void jtfCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCpfKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            
             cpf = jtfCpf.getText();
             cpf = cpf.replace(".", "");
             cpf = cpf.replace("-", "");
-            System.out.println("CPF ="+cpf);
-            
+           
             PessoaFisica p =  new PessoaFisica() ;
             p = daoPFisica.verificaSeExisteCPF(cpf);
             if ( p == null){         
@@ -1465,43 +1352,31 @@ public final class ClienteView extends javax.swing.JFrame {
             jbtSalvar.setEnabled(true);
             jcbEstadoCivil.setEnabled(true);
             jcbEstadoCivil.requestFocus();
-
-           
-
         }
     }//GEN-LAST:event_jtfCpfKeyPressed
 
     private void jcbEstadoCivilKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbEstadoCivilKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
-
             jcbSexo.setEnabled(true);
             jcbSexo.requestFocus();
-
         }
     }//GEN-LAST:event_jcbEstadoCivilKeyPressed
 
     private void jtfRGKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfRGKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
-
             jtfOrgaoRg.setEnabled(true);
             jtfOrgaoRg.requestFocus();
-
         }
     }//GEN-LAST:event_jtfRGKeyPressed
 
     private void jtfOrgaoRgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfOrgaoRgKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
-
-       //     jftfDataEmissaoRg.setEnabled(true);
-            //     jftfDataEmissaoRg.requestFocus();
-            jftfDt_EmissaoRG.setEnabled(true);
-            jftfDt_EmissaoRG.requestFocus();
-
+           jftfDt_EmissaoRG.setEnabled(true);
+           jftfDt_EmissaoRG.requestFocus();
         }
-
     }//GEN-LAST:event_jtfOrgaoRgKeyPressed
 
     private void jtfLimiteCreditoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfLimiteCreditoFocusLost
@@ -1521,8 +1396,7 @@ public final class ClienteView extends javax.swing.JFrame {
                 jtfCreditoCliente.setText("0");               
             }
             jcbSituacaoCliente.setEnabled(true);
-            jtfCreditoCliente.setEnabled(true);
-           
+            jtfCreditoCliente.setEnabled(true);           
             jcbSituacaoCliente.requestFocus();
         }
     }//GEN-LAST:event_jtfLimiteCreditoKeyPressed
@@ -1532,35 +1406,19 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbSituacaoClienteFocusLost
 
     private void jcbSituacaoClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbSituacaoClienteKeyPressed
-
         // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
-           
             jtfCreditoCliente.setEnabled(true);
             jtfCreditoCliente.requestFocus();
-            
-            
-//            jTabbedPane1.setEnabledAt(4, true);
-//            jTabbedPane1.setSelectedIndex(4);
-//            jbtAdicionarEndereco.setEnabled(true);
-//            jbtAdicionarEndereco.requestFocus();
-
-            // jbtSalvar.requestFocus();
-        }
+       }
     }//GEN-LAST:event_jcbSituacaoClienteKeyPressed
 
     private void jrbJuridicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbJuridicoActionPerformed
-        // TODO add your handling code here:
-
-      
         jTabbedPane1.setEnabledAt(1, false);
         jpanelPessoaFisica.setVisible(false);
         jPanelPessoaJuridica.setVisible(true);
         jLabelNome.setText("NOME FANTASIA");
         jtfNome.requestFocus();
-      //  jPanelPessoaJuridica.setSize(300, 300);
-        // jPanelPessoaJuridica.set
-
     }//GEN-LAST:event_jrbJuridicoActionPerformed
 
     private void jtfCNPJFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCNPJFocusLost
@@ -1570,7 +1428,6 @@ public final class ClienteView extends javax.swing.JFrame {
     private void jtfCNPJKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCNPJKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
-
             if (jtfCNPJ.getText().equals("  .   .   /    -  ")) {
                 JOptionPane.showMessageDialog(null, "CNPJ não poder ser vazio ou nullo !!!");
             }else{
@@ -1578,7 +1435,6 @@ public final class ClienteView extends javax.swing.JFrame {
                   cnpj = cnpj.replace(".", "");
                   cnpj = cnpj.replace("/", "");
                   cnpj = cnpj.replace("-", "");
-                  System.out.println("CNPJ para Validar ="+cnpj);
                   if (ValidaCNP.isValidCNPJ(cnpj)== false){
                       JOptionPane.showMessageDialog(null, "CNPJ INVÁLIDO !!!");
                       return;
@@ -1586,7 +1442,6 @@ public final class ClienteView extends javax.swing.JFrame {
                   jtfInscricaoMunicipal.setEnabled(true);
                   jtfInscricaoMunicipal.requestFocus();
             }
-
         }
     }//GEN-LAST:event_jtfCNPJKeyPressed
 
@@ -1595,7 +1450,6 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfInscricaoMunicipalFocusLost
 
     private void jtfInscricaoMunicipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfInscricaoMunicipalKeyPressed
-        // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
             jtfInscricaoEstadual.setEnabled(true);
             jtfInscricaoEstadual.requestFocus();
@@ -1607,7 +1461,6 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfInscricaoEstadualFocusLost
 
     private void jtfInscricaoEstadualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfInscricaoEstadualKeyPressed
-        // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
             jTabbedPane1.setEnabledAt(3, true);
             jTabbedPane1.setSelectedIndex(3);
@@ -1617,7 +1470,6 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfInscricaoEstadualKeyPressed
 
     private void jrbFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbFisicaActionPerformed
-        // TODO add your handling code here:
         jTabbedPane1.setEnabledAt(2, false);
         jPanelPessoaJuridica.setVisible(false);
         jpanelPessoaFisica.setVisible(true);
@@ -1632,9 +1484,7 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbSexoFocusLost
 
     private void jcbSexoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbSexoKeyPressed
-        // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
-
             jtfRG.setEnabled(true);
             jtfRG.requestFocus();
         }
@@ -1675,10 +1525,7 @@ public final class ClienteView extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Excluir Endereço, Click no Botão Salvar e tente novamente.");
-            //ex.printStackTrace();
         }
-
-
     }//GEN-LAST:event_jbtExcluirEnderecoActionPerformed
 
     private void jtfPesquisaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPesquisaClienteActionPerformed
@@ -1686,29 +1533,15 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfPesquisaClienteActionPerformed
 
     private void jtfPesquisaClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisaClienteKeyPressed
-
         if (evt.getKeyCode() == evt.VK_ENTER) {
             jTable1.requestFocus();
         } else if (evt.getKeyCode() == evt.VK_TAB) {
             jbtNovo.requestFocus();
         }
-
-
     }//GEN-LAST:event_jtfPesquisaClienteKeyPressed
 
     private void jbtAdicionaContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdicionaContatoActionPerformed
-        // TODO add your handling code here:
-//        contatoView.setSize(404, 262);
-//        contatoView.setTitle("Cadastro de Contato do Cliente");
-//        contatoView.setLocationRelativeTo(null); // centraliza a tela 
-//        contatoView.setVisible(true);
-        
-        
-        
-        
-        
         contatoView = new ContatoView(new java.awt.Frame(), true);
-      //  contatoView.setSize(404, 262);
         contatoView.setTitle("Cadastro de Contato do Cliente");
         contatoView.setLocationRelativeTo(null); // centraliza a tela                            
         contatoView.setFormulario("cliente");
@@ -1717,9 +1550,6 @@ public final class ClienteView extends javax.swing.JFrame {
            contatoView.setOperacao(operacao);
         }
         contatoView.setVisible(true);
-        
-
-
     }//GEN-LAST:event_jbtAdicionaContatoActionPerformed
 
     private void jbtAdicionarEnderecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtAdicionarEnderecoKeyPressed
@@ -1738,16 +1568,10 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-        
         operacao = "alterar";
         habilitar(true);
         limpar();
         ClienteDAO dao = new ClienteDAO();
-        //Instancia pessoa fisica.
-//        PessoaFisica pf = new PessoaFisica();
-//        PessoaJuridica pj = new PessoaJuridica();
-        //Instancia cliente
         Pessoa cliente = new Pessoa() {};
         //Código de pessoa.
         Long id = (Long) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
@@ -1756,9 +1580,7 @@ public final class ClienteView extends javax.swing.JFrame {
         contatoView = new ContatoView(new java.awt.Frame(), true);
         //Se for Pessoa Física faça isso abaixo;
         cliente = dao.cliente(id);
-        
         idCliente = cliente.getCli().getId();
-        
         if (cliente.getTipo().equals("F")) {
             pf = dao.pessoaFisica(id);         
             
@@ -1822,10 +1644,7 @@ public final class ClienteView extends javax.swing.JFrame {
             jbtSalvar.setEnabled(true);
             jTabbedPane1.setEnabledAt(1, true);
             jpanelPessoaFisica.setEnabled(true);
-            jTabbedPane1.setEnabledAt(2, false);
-           // jTabbedPane1.setVisible(false);
-            
-
+            jTabbedPane1.setEnabledAt(2, false);  
         } else if (cliente.getTipo().equals("J")) {
             pj = dao.pessoaJuridica(id);
             cliente = dao.cliente(id);
@@ -1845,8 +1664,7 @@ public final class ClienteView extends javax.swing.JFrame {
             jtfRazaoSocial.setText(pj.getRazao_social());
             jtfCNPJ.setText(pj.getCnpj());
             jtfInscricaoEstadual.setText(pj.getInscrecao_estadual());
-            jtfInscricaoMunicipal.setText(pj.getInscrecao_municipal());
-            
+            jtfInscricaoMunicipal.setText(pj.getInscrecao_municipal());            
             jtfLimiteCredito.setText(cliente.getCli().getLimite().toString());
             jtfLimiteCredito.setText(new DecimalFormat("#,##0.00").format(Double.parseDouble(jtfLimiteCredito.getText()))); 
             if (cliente.getCli().getSituacao().equals("NORMAL"))
@@ -1869,12 +1687,13 @@ public final class ClienteView extends javax.swing.JFrame {
             amodel1.setNumRows(0);
             for (PessoaContato contato : listaContato) {
                 amodel1.addRow(new Object[]{contato.getDescricao(), contato.getDdd(), contato.getNumero(), contato.getId()});
-            }
-            
+            }            
             jTabbedPane1.setEnabledAt(1, false);
             jTabbedPane1.setEnabledAt(2, true);
             jPanelPessoaJuridica.setVisible(true);          
         }
+        jrbFisica.setEnabled(false);
+        jrbJuridico.setEnabled(false);
         jbtSalvar.setEnabled(true);
         jbtNovo.setEnabled(false);
         jbtCancelar.setEnabled(true);
@@ -1883,15 +1702,9 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jftfDt_EmissaoRGKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jftfDt_EmissaoRGKeyPressed
-        // TODO add your handling code here:
-
-        if (evt.getKeyCode() == evt.VK_ENTER) {
+       if (evt.getKeyCode() == evt.VK_ENTER) {
             jftfNascimento.setEnabled(true);
             jftfNascimento.requestFocus();
-//            jTabbedPane1.setEnabledAt(3, true);
-//            jTabbedPane1.setSelectedIndex(3);
-//            jtfLimiteCredito.setEnabled(true);
-//            jtfLimiteCredito.requestFocus();
         }
     }//GEN-LAST:event_jftfDt_EmissaoRGKeyPressed
 
@@ -1965,12 +1778,7 @@ public final class ClienteView extends javax.swing.JFrame {
     public void imprimirClientes(){
         
          //  PessoaFisica pf = new PessoaFisica();
-       
-        
-        
-        
-
-        // compilacao do JRXML
+         // compilacao do JRXML
         JasperReport report = null;
         try {
             report = JasperCompileManager.compileReport("src/relatorios/RelCliente.jrxml");
@@ -1988,18 +1796,12 @@ public final class ClienteView extends javax.swing.JFrame {
 	// 3 - o data source. Note que nao devemos passar a lista diretamente,
 	// e sim "transformar" em um data source utilizando a classe
 	// JRBeanCollectionDataSource
-        
-        
-        
-        
-        
-		JasperPrint print = null;
+     	JasperPrint print = null;
         try {
             print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(listaClienteFisico));
         } catch (JRException ex) {
             JOptionPane.showMessageDialog(null, "Problemas ao gerar pdf :"+ex.getMessage());
         }
-
         try {
             // exportacao do relatorio para outro formato, no caso PDF
             JasperExportManager.exportReportToPdfFile(print,
@@ -2008,10 +1810,6 @@ public final class ClienteView extends javax.swing.JFrame {
             Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-		System.out.println("Relatório gerado.");
-        
-        
-        
     }
     
     
@@ -2029,8 +1827,7 @@ public final class ClienteView extends javax.swing.JFrame {
          if (evt.getKeyCode() == evt.VK_ENTER){
             String op = System.getProperty("os.name");
             if (!"Linux".equals(op))            
-                jbtNovoActionPerformed(null);
-           
+                jbtNovoActionPerformed(null);           
         }
     }//GEN-LAST:event_jbtNovoKeyPressed
 
@@ -2075,33 +1872,25 @@ public final class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSairKeyPressed
 
     private void jtfCreditoClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCreditoClienteKeyPressed
-       if (evt.getKeyCode() == evt.VK_ENTER) {
-           
+       if (evt.getKeyCode() == evt.VK_ENTER) {           
            if (jtfCreditoCliente.equals(""))
                jtfCreditoCliente.setText("0");
             jTabbedPane1.setEnabledAt(4, true);
             jTabbedPane1.setSelectedIndex(4);
             jbtAdicionarEndereco.setEnabled(true);
-            jbtAdicionarEndereco.requestFocus();
-
-            // jbtSalvar.requestFocus();
+            jbtAdicionarEndereco.requestFocus();            
         }
-        
+       jbtSalvar.setEnabled(true);        
     }//GEN-LAST:event_jtfCreditoClienteKeyPressed
 
     private void jftfNascimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jftfNascimentoKeyPressed
-       if (evt.getKeyCode() == evt.VK_ENTER) {
-//            
+       if (evt.getKeyCode() == evt.VK_ENTER) {           
 
             jTabbedPane1.setEnabledAt(3, true);
             jTabbedPane1.setSelectedIndex(3);
             jtfLimiteCredito.setEnabled(true);
             jtfLimiteCredito.requestFocus();
-
-        }
-        
-      
-              
+        }             
     }//GEN-LAST:event_jftfNascimentoKeyPressed
 
     private void jtfCreditoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCreditoClienteActionPerformed
