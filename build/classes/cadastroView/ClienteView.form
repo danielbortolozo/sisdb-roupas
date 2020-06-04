@@ -995,7 +995,6 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtfCreditoCliente">
                   <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="91" green="f6" red="f9" type="rgb"/>
                     </Property>

@@ -368,7 +368,6 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
 
         jbtPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Calculator.png"))); // NOI18N
         jbtPagamento.setText("Pagamento Único");
-        jbtPagamento.setEnabled(false);
         jbtPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtPagamentoActionPerformed(evt);
@@ -395,8 +394,8 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jbtPagamentoMultiplo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbtPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -519,6 +518,7 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
        DefaultTableModel amodelItens = (DefaultTableModel) jTable2.getModel();
        amodelItens.setNumRows(0);
+       
        DefaultTableModel amodelContato = (DefaultTableModel) jTable3.getModel();
        amodelContato.setNumRows(0);
        cliente = new Pessoa() {};
@@ -528,6 +528,7 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
         
        for (PedidoItens itens : pedidoCrediario.getIdPedido().getListaItens()){                   
                    amodelItens.addRow(new Object[]{itens.getProduto().getId(), itens.getQuantidade(), itens.getDescricao(), itens.getVlUnit(), itens.getVlSubtotal()});
+                  
         }
         
         cliente = pessoaDAO.pessoa(pedidoCrediario.getIdPedido().getCliente().getId());   
@@ -536,8 +537,8 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
             amodelContato.addRow(new Object[]{contato.getDescricao(), contato.getDdd(), contato.getNumero()});
         }   
         
-      
-
+        
+                    
         
        jTable2.getColumnModel().getColumn(3).setCellRenderer(new JTableFonteColunaDireitaAzul());
        jTable2.getColumnModel().getColumn(4).setCellRenderer(new JTableFonteColunaDireitaAzul());
@@ -552,10 +553,7 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
        jTabbedPane1.setEnabledAt(1, true);
        jTabbedPane1.setEnabledAt(2, true);
        
-        
-       
-       
-      // jbtPagamento.requestFocus();
+  // jbtPagamento.requestFocus();
         
         
     }//GEN-LAST:event_jTable1MouseClicked
@@ -571,9 +569,7 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
         Long idPessoa = Long.parseLong(menuView.Menu.idColaborador);
         colaborador = pessoaDAO.pessoa(idPessoa);
         
-        try{
-            
-            
+        try{           
            caixa = caixaDAO.carregaCaixa(colaborador);
            float subtotal = 0;
            vlTotalStr = vlTotalStr.replace(".", "");
@@ -592,7 +588,7 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
            // System.out.println("vltotal ="+vlTotalStr);
            jrbTodos.requestFocus();
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "CAIXA FECHADO !!!");
+            JOptionPane.showMessageDialog(null, "Erro de processamentno (BTN-PAGAMENTO-ÚNICO) !!!");
         }
         
         
@@ -715,17 +711,11 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
            if (listaPedidoPagamentoMultiplo.size() == 0){
                JOptionPane.showMessageDialog(null, "Nenhum Crediário Selecionado");
                return;
-           }
-            
-            System.out.println("listaPedidoPgMult ="+listaPedidoPagamentoMultiplo.size());           
+           }          
+                     
           for (PedidoCrediario pc : listaPedidoPagamentoMultiplo){
               vltotal = (vltotal + Float.parseFloat(pc.getVlParcela().toString()));                     
-          }
-                 
-            
-         
-          
-//            
+          }            
            caixa = caixaDAO.carregaCaixa(colaborador);
            vlTotalStr = new DecimalFormat("#,##0.00").format(vltotal);
            
@@ -744,13 +734,7 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
            jrbTodos.requestFocus();
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "CAIXA FECHADO !!!");
-        }
-          
-   
-        
-        
-        
-       
+        }       
     }//GEN-LAST:event_jbtPagamentoMultiploActionPerformed
 
     private  void carregaTable(){

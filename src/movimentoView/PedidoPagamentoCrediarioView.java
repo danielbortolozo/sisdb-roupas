@@ -815,7 +815,7 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
                         caixa.setSaldoFinal(caixa.getSaldoFinal().add(new BigDecimal(entradaStr)));
                         
                         CaixaItens caixaItens = new CaixaItens();
-                        caixaItens.setDescricao("VENDA Nº: "+pedPag.getPedido().getId());
+                        caixaItens.setDescricao("VENDA Nº: "+PedidoRecebeCrediarioView.pedidoCrediario.getIdPedido().getId());
                         caixaItens.setFormaPagto("CARTAO CREDITO");
                         caixaItens.setIdCaixa(caixa);
                         caixaItens.setTipo("VENDA");

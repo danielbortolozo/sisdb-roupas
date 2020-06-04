@@ -880,7 +880,6 @@ public final class ClienteView extends javax.swing.JFrame {
 
         cpfLabel8.setText("CRÉDITO");
 
-        jtfCreditoCliente.setEditable(false);
         jtfCreditoCliente.setBackground(new java.awt.Color(249, 246, 145));
         jtfCreditoCliente.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jtfCreditoCliente.setText("0,00");
@@ -2229,8 +2228,8 @@ public final class ClienteView extends javax.swing.JFrame {
                 }
             }
             if (jtfLimiteCredito.getText().equals("") || jtfLimiteCredito.getText().equals("0")){
-                jtfLimiteCredito.setText("100,00");
-                jtfCreditoCliente.setText("100,00");
+                jtfLimiteCredito.setText("1000,00");
+                jtfCreditoCliente.setText("1000,00");
             }
             
         } else 
