@@ -36,7 +36,7 @@
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane6" min="-2" pref="324" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -331,7 +331,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" pref="630" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="0" pref="644" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -457,7 +457,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jPanel6" pref="131" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jPanel7" alignment="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel7" alignment="0" pref="260" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                               <Component id="jSeparator1" pref="7" max="32767" attributes="0"/>

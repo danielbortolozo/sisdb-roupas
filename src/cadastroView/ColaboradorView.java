@@ -1074,7 +1074,7 @@ public final class ColaboradorView extends javax.swing.JInternalFrame {
         jftfDataCadastro.setEditable(false);
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy"); //você pode usar outras máscaras 
         Date y = new Date();
-        jftfDataCadastro.setValue(y);
+        jftfDataCadastro.setValue(sdf1.format(y));
    //     jcbTipoCliente.setEnabled(true);
         // jTabbedPane1.setEnabled(true);
         jrbFisica.setSelected(true);
