@@ -564,11 +564,16 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
                    return;
                 }else    
                     if (tipoPagamento.equals("FIADO")){
-                        JOptionPane.showMessageDialog(null, "Tipo de pagamento não aceito pelo Sistema.");
+                        JOptionPane.showMessageDialog(null, "Tipo de pagamento inválido.");
                         jtfVlRecebido.setEnabled(false);
                         return;
                     }else
-                        jtfVlRecebido.setEnabled(true);
+                        if (tipoPagamento.equals("NENHUM")){
+                           JOptionPane.showMessageDialog(null, "Tipo de pagamento inválido.");
+                           jtfVlRecebido.setEnabled(false);
+                           return;
+                        }else
+                           jtfVlRecebido.setEnabled(true);
                
                 
                 
@@ -700,19 +705,15 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
                    PedidoRecebeCrediarioView.pedidoCrediario.setStatus("FECHADO");
                 else{
                     for (int i = 0; i < PedidoRecebeCrediarioView.listaPedidoPagamentoMultiplo.size(); i ++){
-                        
+       
                         PedidoRecebeCrediarioView.listaPedidoPagamentoMultiplo.get(i).setStatus("FECHADO");
                     }
-                }
-                    
-            
+                }           
             try {
                 pedPag.setDtPagamento(formatadorHD.parse(dataHora));
             } catch (ParseException ex) {
                     Logger.getLogger(PedidoPagamentoView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            
+            }            
             
              //Registra no caixa.
             caixa = caixaDao.carregaCaixa(menuView.Menu.colaborador);                  
@@ -727,18 +728,15 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
                   //  float vltotal = itens.getPedidoPagamento().getTotal().floatValue();
                 float vltotal = pedPag.getTotal().floatValue();
                 //float troco = itens.getPedidoPagamento().getTroco().floatValue();
-                float troco = pedPag.getTroco().floatValue();
+                float troco = pedPag.getTroco().floatValue();                
                 
-                
-                for (int i = 0; i < jTable1.getRowCount(); i ++){
-                    
-                    somaPagamento = (somaPagamento + Float.parseFloat(jTable1.getValueAt(i, 1).toString()));
-                            
+                for (int i = 0; i < jTable1.getRowCount(); i ++){                    
+                    somaPagamento = (somaPagamento + Float.parseFloat(
+                                          jTable1.getValueAt(i, 1).toString()));
                 }
                 
                // somaPagamento = (somaPagamento + itens.getValor().floatValue());
-                float vlpago = itens.getValor().floatValue();
-                
+                float vlpago = itens.getValor().floatValue();                
                 if (somaPagamento > vltotal){
                     //Para subtrair o valor do troco, colocou mais porque
                     //o troco é um valor negativo, e negativo com negativo é positivo, por isso que colocou operador de "+".
@@ -815,7 +813,21 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
                         caixa.setSaldoFinal(caixa.getSaldoFinal().add(new BigDecimal(entradaStr)));
                         
                         CaixaItens caixaItens = new CaixaItens();
-                        caixaItens.setDescricao("VENDA Nº: "+PedidoRecebeCrediarioView.pedidoCrediario.getIdPedido().getId());
+                       // caixaItens.setDescricao("VENDA Nº: "+PedidoRecebeCrediarioView.pedidoCrediario.getIdPedido().getId());
+                        if (PedidoRecebeCrediarioView.btPagamentoMultiplo == false)
+                           caixaItens.setDescricao("VENDA Nº: "+PedidoRecebeCrediarioView.pedidoCrediario.getIdPedido().getId());
+                        else{
+                             String pedidos = null;
+                            for (PedidoCrediario pc : PedidoRecebeCrediarioView.listaPedidoPagamentoMultiplo){
+                               if (pedidos == null){
+                                   pedidos = pc.getIdPedido().getId().toString();
+                                }else{
+                                   pedidos = pedidos +", "+pc.getIdPedido().getId().toString();
+                                }                                
+                            }
+                        caixaItens.setDescricao("VENDA Nº: "+pedidos);
+                    }        
+                       
                         caixaItens.setFormaPagto("CARTAO CREDITO");
                         caixaItens.setIdCaixa(caixa);
                         caixaItens.setTipo("VENDA");
@@ -846,7 +858,22 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
                             caixa.setSaldoFinal(caixa.getSaldoFinal().add(new BigDecimal(entradaStr)));
                             
                             CaixaItens caixaItens = new CaixaItens();
-                            caixaItens.setDescricao("VENDA Nº: "+PedidoRecebeCrediarioView.pedidoCrediario.getIdPedido().getId());
+                     //       caixaItens.setDescricao("VENDA Nº: "+PedidoRecebeCrediarioView.pedidoCrediario.getIdPedido().getId());
+                       
+                            if (PedidoRecebeCrediarioView.btPagamentoMultiplo == false)
+                               caixaItens.setDescricao("VENDA Nº: "+PedidoRecebeCrediarioView.pedidoCrediario.getIdPedido().getId());
+                            else{
+                                 String pedidos = null;
+                                 for (PedidoCrediario pc : PedidoRecebeCrediarioView.listaPedidoPagamentoMultiplo){
+                                     if (pedidos == null){
+                                      pedidos = pc.getIdPedido().getId().toString();
+                                 }else{
+                                     pedidos = pedidos +", "+pc.getIdPedido().getId().toString();
+                                  }                                
+                                }
+                               caixaItens.setDescricao("VENDA Nº: "+pedidos);
+                            }
+                     
                             caixaItens.setFormaPagto("CARTAO DEBITO");
                             caixaItens.setIdCaixa(caixa);
                             caixaItens.setTipo("VENDA");
@@ -876,7 +903,21 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
                                 caixa.setSaldoFinal(caixa.getSaldoFinal().add(new BigDecimal(entradaStr)));
                                 
                                 CaixaItens caixaItens = new CaixaItens();
-                                caixaItens.setDescricao("VENDA Nº: "+PedidoRecebeCrediarioView.pedidoCrediario.getIdPedido().getId());
+                              //  caixaItens.setDescricao("VENDA Nº: "+PedidoRecebeCrediarioView.pedidoCrediario.getIdPedido().getId());
+                                if (PedidoRecebeCrediarioView.btPagamentoMultiplo == false)
+                                  caixaItens.setDescricao("VENDA Nº: "+PedidoRecebeCrediarioView.pedidoCrediario.getIdPedido().getId());
+                                else{
+                                    String pedidos = null;
+                                    for (PedidoCrediario pc : PedidoRecebeCrediarioView.listaPedidoPagamentoMultiplo){
+                                       if (pedidos == null){
+                                          pedidos = pc.getIdPedido().getId().toString();
+                                       }else{
+                                            pedidos = pedidos +", "+pc.getIdPedido().getId().toString();
+                                        }                                
+                                    }
+                                    caixaItens.setDescricao("VENDA Nº: "+pedidos);
+                                }                          
+                              
                                 caixaItens.setFormaPagto("CHEQUE");
                                 caixaItens.setIdCaixa(caixa);
                                 caixaItens.setTipo("VENDA");
@@ -951,9 +992,7 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
                     pc.setIdPedidoPagamento(pedPag);
                     pCrediarioDao.salvar(pc);
                 }
-            }
-            
-            
+            }           
             //Adicionando Crédito para o cliente.
             Cliente cli = null;
             ClienteDAO cliDao = new ClienteDAO();
@@ -963,12 +1002,8 @@ public class PedidoPagamentoCrediarioView extends javax.swing.JDialog {
             
             PedidoRecebeCrediarioView.jrbTodos.doClick();
             
-            jButton2ActionPerformed(evt);
-            
-                
+            jButton2ActionPerformed(evt);               
         }             
-    
-
     }//GEN-LAST:event_jbtFinalizarActionPerformed
 
     private void jbtFinalizarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtFinalizarKeyPressed

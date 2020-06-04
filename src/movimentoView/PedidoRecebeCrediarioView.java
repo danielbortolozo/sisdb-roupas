@@ -536,10 +536,7 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
         for (PessoaContato contato : cliente.getListaContato()){
             amodelContato.addRow(new Object[]{contato.getDescricao(), contato.getDdd(), contato.getNumero()});
         }   
-        
-        
-                    
-        
+       
        jTable2.getColumnModel().getColumn(3).setCellRenderer(new JTableFonteColunaDireitaAzul());
        jTable2.getColumnModel().getColumn(4).setCellRenderer(new JTableFonteColunaDireitaAzul());
        //Muda cor da Linha Selecionada na Jtable1.
@@ -589,10 +586,7 @@ public class PedidoRecebeCrediarioView extends javax.swing.JInternalFrame {
            jrbTodos.requestFocus();
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro de processamentno (BTN-PAGAMENTO-ÚNICO) !!!");
-        }
-        
-        
-        
+        }       
     }//GEN-LAST:event_jbtPagamentoActionPerformed
 
     private void jrbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbTodosActionPerformed

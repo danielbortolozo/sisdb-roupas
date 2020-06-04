@@ -116,6 +116,15 @@ public class PedidoCrediarioView extends javax.swing.JDialog {
         jlValorParcelas.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jlValorParcelas.setText("jLabel5");
 
+        jDateChooser1.setDateFormatString("dd/MM/yyyy");
+        jDateChooser1.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+                jDateChooser1AncestorMoved(evt);
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -406,6 +415,10 @@ public class PedidoCrediarioView extends javax.swing.JDialog {
            evt.consume();
         }
     }//GEN-LAST:event_jtfNumParcelaKeyTyped
+
+    private void jDateChooser1AncestorMoved(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_jDateChooser1AncestorMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateChooser1AncestorMoved
 
    private void Keypress_jDateChoooser(){
         HashSet<AWTKeyStroke> conjForward = new HashSet<AWTKeyStroke>(jDateChooser1.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
