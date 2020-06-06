@@ -26,12 +26,54 @@ public class ProdutoGradeItens {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     
-    private String atributo;
-    private String valor;
-    
+    private String tamanho;
+    private float estoque;
+   
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_produto_grade", referencedColumnName = "id",
              foreignKey = @ForeignKey(name="fk_produtoGrade_produtoGradeItens"))
     private ProdutoGrade produtoGrade;
+
+    public ProdutoGradeItens() {
+    }
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    public float getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(float estoque) {
+        this.estoque = estoque;
+    }
+
+    public ProdutoGrade getProdutoGrade() {
+        return produtoGrade;
+    }
+
+    public void setProdutoGrade(ProdutoGrade produtoGrade) {
+        this.produtoGrade = produtoGrade;
+    }
+    
+    
+    
+    
+    
+    
+    
     
 }

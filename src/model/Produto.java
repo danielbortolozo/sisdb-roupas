@@ -5,6 +5,7 @@
  */
 package model;
 
+import com.sun.istack.internal.NotNull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
@@ -67,6 +68,9 @@ public class Produto implements Serializable{
     private float ultimo_vl_compra;
     private boolean estoque_controlado;
     private String tamanho;
+    
+    @Column(name="grade", nullable = true)
+    private boolean grade;
     
     @Column(name = "porcentagem_atacado")
     private float porcentagemAtacado;
@@ -257,6 +261,14 @@ public class Produto implements Serializable{
 
     public void setVlVendaAtacado(float vlVendaAtacado) {
         this.vlVendaAtacado = vlVendaAtacado;
+    }
+
+    public boolean isGrade() {
+        return grade;
+    }
+
+    public void setGrade(boolean grade) {
+        this.grade = grade;
     }
 
    

@@ -5,14 +5,18 @@
  */
 package model;
 
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -29,13 +33,16 @@ public class ProdutoGrade {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
      
-    private float estoque;
-    private float estoque_minimo;
+    private String cor;
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_produto", referencedColumnName = "id", 
             foreignKey = @ForeignKey(name="fk_produto_produtoGrade"))     
     private Produto produto;
+    
+    @OneToMany(mappedBy = "produtoGrade", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    private List<ProdutoGradeItens> listaGradeItens;
+    
 
     public ProdutoGrade() {
         
@@ -49,21 +56,15 @@ public class ProdutoGrade {
         this.id = id;
     }
 
-    public float getEstoque() {
-        return estoque;
+    public String getCor() {
+        return cor;
     }
 
-    public void setEstoque(float estoque) {
-        this.estoque = estoque;
+    public void setCor(String cor) {
+        this.cor = cor;
     }
 
-    public float getEstoque_minimo() {
-        return estoque_minimo;
-    }
-
-    public void setEstoque_minimo(float estoque_minimo) {
-        this.estoque_minimo = estoque_minimo;
-    }
+   
 
     public Produto getProduto() {
         return produto;
@@ -73,6 +74,14 @@ public class ProdutoGrade {
         this.produto = produto;
     }
 
+    public List<ProdutoGradeItens> getListaGradeItens() {
+        return listaGradeItens;
+    }
+
+    public void setListaGradeItens(List<ProdutoGradeItens> listaGradeItens) {
+        this.listaGradeItens = listaGradeItens;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -98,13 +107,7 @@ public class ProdutoGrade {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "ProdutoGrade{" + "id=" + id + ", estoque=" + estoque + ", estoque_minimo=" + estoque_minimo + ", produto=" + produto + '}';
-    }
-    
-    
-    
+   
     
     
     

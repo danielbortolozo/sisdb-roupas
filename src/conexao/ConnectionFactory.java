@@ -19,14 +19,14 @@ public class ConnectionFactory {
     public Statement stmt; //prepara e realiza ma pesquisa no banco
     public ResultSet rs;
     public Connection conn;
-    private String driver = "org.postgresql.Driver";
-    private String caminho = "jdbc:postgresql://localhost:5432/sysauto";
-    private String usuario = "postgres";
-    private String senha = "rocca23";
+//    private String driver = "org.postgresql.Driver";
+//    private String caminho = "jdbc:postgresql://localhost:5432/sysauto";
+//    private String usuario = "postgres";
+//    private String senha = "rocca23";
     public static Connection getConnection() throws Exception {
         try {
             Class.forName("org.postgresql.Driver");
-            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/roupa", "postgres", "rocca23");
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/tabacaria", "postgres", "rocca23");
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

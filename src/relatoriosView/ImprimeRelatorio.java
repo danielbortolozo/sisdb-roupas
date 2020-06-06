@@ -14,6 +14,7 @@ import dao.ProdutoDAO;
 
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,6 +39,7 @@ import model.Empresa;
 import model.OrcamentoCab;
 import model.Pedido;
 import model.PedidoItens;
+import model.Pessoa;
 import model.Produto;
 import model.VendaCab;
 import net.sf.jasperreports.engine.JRException;
@@ -370,22 +372,24 @@ public class ImprimeRelatorio {
 //    }
 //    
     
-    public void vendaPorCliente(String operador, String cliente) throws SQLException, JRException, Exception {
+    public void vendaPorCliente(String operador, Pessoa pessoa) throws SQLException, JRException, Exception {
         conexao();
         ResultSet rs = null;
         try{
-            System.out.println("Cliente ="+cliente);    
+            System.out.println("Cliente ="+pessoa.getId());    
         Statement stmt = conn.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);       
-        String sql = "select p.id, p.nome, p.email, pf.cpf, c.datacadastro FROM pessoa p, pessoa_fisica pf, cliente c where p.id=c.pessoa_id and p.id=pf.pessoa_id";                
-                      
+       // String sql = "select p.id, p.nome, p.email, pf.cpf, c.datacadastro FROM pessoa p, pessoa_fisica pf, cliente c where p.id=c.pessoa_id and p.id=pf.pessoa_id";                
+        String sql = "select pe.id, pi.dt, sum(pi.vl_subtotal)   FROM pessoa p, pedido pe, pedido_itens pi "+ 
+                     "where p.id=pe.id_cliente and pe.id=pi.id_pedido and pe.id_cliente=:cliente group by pe.id";             
 
-        //PreparedStatement stmt = conn.prepareStatement(sql);
+      //  PreparedStatement stmt = conn.prepareStatement(sql);
        // stmt.setString(1, cliente);
         rs = stmt.executeQuery(sql);
            
+            System.out.println("Relatorio por Cliente :"+rs.toString());
         Map parametros = new HashMap();
         parametros.put("operador", operador);
-        parametros.put("nome", cliente);
+        parametros.put("nome", pessoa.getNome());
 
         InputStream is = getClass().getResourceAsStream("VendaPorCliente.jasper");
         
@@ -397,7 +401,7 @@ public class ImprimeRelatorio {
         jv.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
         jv.setVisible(true);
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error :"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Não tem relatório para este cliente.");
             e.printStackTrace();
         }
 
