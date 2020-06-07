@@ -74,14 +74,16 @@ public class LoginView extends javax.swing.JFrame {
 
         painelLogin.setLayout(new java.awt.BorderLayout());
 
+        painelImgCab.setBackground(new java.awt.Color(8, 5, 2));
         painelImgCab.setPreferredSize(new java.awt.Dimension(410, 400));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagemLogin.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/backgroundWolf1.png"))); // NOI18N
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         painelCentral.setLayout(new java.awt.BorderLayout());
 
+        jPanel2.setBackground(new java.awt.Color(10, 6, 2));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/principal/entrar2.png"))); // NOI18N
@@ -99,7 +101,7 @@ public class LoginView extends javax.swing.JFrame {
         });
         jPanel2.add(btnEntrar);
 
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/principal/sair2.png"))); // NOI18N
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/principal/sair2Vermelho.png"))); // NOI18N
         btnSair.setPreferredSize(new java.awt.Dimension(135, 45));
         btnSair.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/principal/sair1.png"))); // NOI18N
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +111,7 @@ public class LoginView extends javax.swing.JFrame {
         });
         jPanel2.add(btnSair);
 
-        jLabel2.setBackground(new java.awt.Color(27, 55, 85));
+        jLabel2.setBackground(new java.awt.Color(2, 9, 16));
         jLabel2.setForeground(new java.awt.Color(240, 241, 244));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Suporte : (17) 99784-1731 | www.sisdb.com.br");
@@ -118,10 +120,10 @@ public class LoginView extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/principal/user.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/principal/userBlack.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 14, -1, 170));
 
-        usuario.setBackground(new java.awt.Color(34, 102, 145));
+        usuario.setBackground(new java.awt.Color(2, 11, 16));
         usuario.setBorder(null);
         usuario.setForeground(new java.awt.Color(255, 255, 255));
         usuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -137,10 +139,10 @@ public class LoginView extends javax.swing.JFrame {
         });
         jPanel1.add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 180, 50));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/principal/campoLoginUs.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/principal/campoLoginUsBlack.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, 50));
 
-        senha.setBackground(new java.awt.Color(34, 102, 145));
+        senha.setBackground(new java.awt.Color(2, 11, 16));
         senha.setBorder(null);
         senha.setForeground(new java.awt.Color(255, 255, 255));
         senha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -159,7 +161,7 @@ public class LoginView extends javax.swing.JFrame {
         });
         jPanel1.add(senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 180, 50));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/principal/campoLoginPass.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/principal/campoLoginPassBlack.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, 50));
 
         javax.swing.GroupLayout painelImgCabLayout = new javax.swing.GroupLayout(painelImgCab);

@@ -24,7 +24,9 @@ public class ProdutoDAO {
         EntityManager manager = JPAUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
         tx.begin();          
-        manager.persist(produto);           
+        manager.persist(produto); 
+        
+        
         tx.commit();
         manager.close();
     }    

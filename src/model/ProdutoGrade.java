@@ -33,7 +33,7 @@ public class ProdutoGrade {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
      
-    private String cor;
+    private String grade;
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_produto", referencedColumnName = "id", 
@@ -56,12 +56,12 @@ public class ProdutoGrade {
         this.id = id;
     }
 
-    public String getCor() {
-        return cor;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setCor(String cor) {
-        this.cor = cor;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
    

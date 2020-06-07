@@ -20,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
 import model.CategoriaProduto;
 import model.MarcaProduto;
 import model.Produto;
+import model.ProdutoGrade;
+import model.ProdutoGradeItens;
 import model.UnidadeProduto;
 import util.RemoverAcentosString;
 
@@ -40,6 +42,11 @@ public class ProdutoView extends javax.swing.JFrame {
     CategoriaProdutoDAO categoriaDao;
     MarcaProdutoDAO marcaDAO;
     UnidadeProdutoDAO unidadeDAO;
+    Produto produtoSalvarGrade;
+    ProdutoGradeView produtoGradeView;
+    ProdutoDAO prodDAO = new ProdutoDAO();
+    DefaultTableModel amodelGradeItens;
+    ProdutoGrade produtoGrade;
     public ProdutoView() {
         initComponents();
         jcbCategoria.setSelectedIndex(-1);
@@ -55,6 +62,7 @@ public class ProdutoView extends javax.swing.JFrame {
       //  jPanel6.setVisible(false);
      //   jPanel7.setVisible(false);
         jTabbedPane1.setEnabledAt(2, false);
+        jbtEditarGrade.setEnabled(false);
         //jTabbedPane1.setEnabledAt(1, false);
 
        
@@ -130,6 +138,14 @@ public class ProdutoView extends javax.swing.JFrame {
         jtfValorAtacado = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableGrade = new javax.swing.JTable();
+        jbtEditarGrade = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableGradeItens = new javax.swing.JTable();
+        jbtAdicionar = new javax.swing.JButton();
+        jbtAtualizarGrade = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jbtNovo = new javax.swing.JButton();
         jbtExcluir = new javax.swing.JButton();
@@ -727,21 +743,23 @@ public class ProdutoView extends javax.swing.JFrame {
                     .addComponent(labelValorVenda)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel19)
-                    .addComponent(jtfValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfPorcentagem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtfValorVenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfPorcentagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel17)
+                        .addComponent(jLabel19)))
                 .addGap(41, 41, 41)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelValorVenda1)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelValorVenda1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel22))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel23)
-                    .addComponent(jtfValorAtacado, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfPorcentagemAtacado, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtfValorAtacado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfPorcentagemAtacado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel24)
+                        .addComponent(jLabel23)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -764,15 +782,139 @@ public class ProdutoView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("PREÇO", jPanel2);
 
+        jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jTableGrade.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "GRADE (cor, tamanho, peso)", "Id"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Long.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableGrade.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTableGrade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableGradeMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableGrade);
+        if (jTableGrade.getColumnModel().getColumnCount() > 0) {
+            jTableGrade.getColumnModel().getColumn(0).setPreferredWidth(200);
+            jTableGrade.getColumnModel().getColumn(1).setResizable(false);
+            jTableGrade.getColumnModel().getColumn(1).setPreferredWidth(0);
+        }
+
+        jbtEditarGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/edit.png"))); // NOI18N
+        jbtEditarGrade.setText("Editar ");
+        jbtEditarGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEditarGradeActionPerformed(evt);
+            }
+        });
+
+        jTableGradeItens.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ATRIBUTO", "ESTOQUE MÍNIMO", "ESTOQUE"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableGradeItens.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane3.setViewportView(jTableGradeItens);
+        if (jTableGradeItens.getColumnModel().getColumnCount() > 0) {
+            jTableGradeItens.getColumnModel().getColumn(0).setPreferredWidth(200);
+            jTableGradeItens.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTableGradeItens.getColumnModel().getColumn(2).setPreferredWidth(150);
+        }
+
+        jbtAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Add.png"))); // NOI18N
+        jbtAdicionar.setText("Adicionar");
+        jbtAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAdicionarActionPerformed(evt);
+            }
+        });
+
+        jbtAtualizarGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Sync.png"))); // NOI18N
+        jbtAtualizarGrade.setText("Refresh");
+        jbtAtualizarGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAtualizarGradeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jbtEditarGrade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtAtualizarGrade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbtAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtEditarGrade)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtAtualizarGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(144, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 881, Short.MAX_VALUE)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 303, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("GRADE PRODUTO", jPanel8);
@@ -931,6 +1073,8 @@ public class ProdutoView extends javax.swing.JFrame {
          jbtNovo.setEnabled(false);
          jtfPesquisa.setEnabled(false);
          jcheckGrade.setEnabled(true);
+         
+          jTabbedPane1.setEnabledAt(2, false); 
         // jlPreco.setVisible(true);
          jtfDescricao.requestFocus();
 
@@ -992,7 +1136,7 @@ public class ProdutoView extends javax.swing.JFrame {
         limpar();
         jbtNovo.setEnabled(true);
         jtfPesquisa.setEnabled(true);
-        
+        jTabbedPane1.setEnabledAt(2, false);
         jtfPesquisa.requestFocus();
     }
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
@@ -1014,6 +1158,13 @@ public class ProdutoView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione uma Unidade para o Produto");
             jTabbedPane1.setSelectedIndex(0); 
             jcbUnidade.requestFocus();
+            return;
+        }
+        if (jtfCodBarras.getText().length()> 25){
+            JOptionPane.showMessageDialog(null, "Código de barras muito longo, "
+                    + "deve ter no máximo 25 caracteres.");
+            jTabbedPane1.setSelectedIndex(0); 
+            jtfCodBarras.requestFocus();
             return;
         }
         
@@ -1238,6 +1389,8 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbStatusKeyPressed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        DefaultTableModel amodelGrade = (DefaultTableModel) jTableGrade.getModel();  
+        DefaultTableModel amodelGradeItens = (DefaultTableModel) jTableGradeItens.getModel();
         Long id = (Long) jTable1.getValueAt(jTable1.getSelectedRow(), 0);       
         operacao = "alterar";
         jTabbedPane1.setSelectedIndex(0); 
@@ -1245,7 +1398,7 @@ public class ProdutoView extends javax.swing.JFrame {
         jPanel7.setVisible(true);
         for (Produto prod : listaProduto){
             if (id == prod.getId()){
-                
+                produtoSalvarGrade = prod;
                 jtfCodigo.setText(String.valueOf(prod.getId()));
                 jtfDescricao.setText(prod.getDescricao());
                 jtfCodBarras.setText(prod.getCodBarras());
@@ -1278,31 +1431,35 @@ public class ProdutoView extends javax.swing.JFrame {
                 
                 jtfPorcentagemAtacado.setText(new DecimalFormat("#,##0.0").format(prod.getPorcentagemAtacado()));
                 
-                
-                if (prod.isGrade()){
+                  
+                if (prod.isGrade()) {         
+                    if (!prod.getListaGrade().isEmpty()){                         
+                        carregarGradeProduto(prod);
+                    } else { //limpar grade.
+                           amodelGrade.setNumRows(0); 
+                    }   
                     jcheckGrade.setSelected(true);
                     jcbControlaEstoque.setSelected(false);
                     jcbControlaEstoque.setEnabled(false);
                     jtfEstoqueMinimo.setEnabled(false);
                     jtfEstoque.setEnabled(false);
                     jTabbedPane1.setEnabledAt(2, true);
-                } else {
+                }else {
                     jcheckGrade.setSelected(false);
                     jcbControlaEstoque.setEnabled(true);
                     jTabbedPane1.setEnabledAt(2, false);
-                }               
+                    amodelGrade.setNumRows(0); 
+                }                             
                 
                 if (prod.isEstoque_controlado()){
                     jcbControlaEstoque.setSelected(true);
                     jtfEstoqueMinimo.setEnabled(true);
                     jtfEstoque.setEnabled(true);
-                }else
+                }else {
                     jcbControlaEstoque.setSelected(false);
-                 
-                
+                }                
                 jtfTamanho.setText(prod.getTamanho());
-                
-                
+                amodelGradeItens.setNumRows(0);               
                 
         //        jtfUltimoValorCompra.setText(new DecimalFormat("#,##0.00").format(prod.getUltimo_vl_compra()));
         //        jtfModelo.setText(prod.getModelo());
@@ -1511,12 +1668,76 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbCategoriaActionPerformed
 
     private void jcheckGradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcheckGradeMouseClicked
-        jTabbedPane1.setEnabledAt(2, true);
+        
+        if (this.operacao.equals("salvar")){
+           jTabbedPane1.setEnabledAt(2, false);
+        }else {
+           jTabbedPane1.setEnabledAt(2, true); 
+        }
         
         if (jcbControlaEstoque.isSelected()){
             jcbControlaEstoque.setSelected(false);
         }
     }//GEN-LAST:event_jcheckGradeMouseClicked
+
+    private void jbtEditarGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarGradeActionPerformed
+       try{ 
+             
+              produtoGradeView = new ProdutoGradeView(new java.awt.Frame(), true, 
+                      produtoSalvarGrade, this.produtoGrade, "alterar");
+              produtoGradeView.setLocationRelativeTo(null);
+              produtoGradeView.setTitle("Editando grade de produto");
+              produtoGradeView.setVisible(true); 
+           }catch(Exception e){
+               JOptionPane.showMessageDialog(null, "Ocorreu um problema, ao abrir cadastro de grade.");
+              
+           }
+    }//GEN-LAST:event_jbtEditarGradeActionPerformed
+
+    private void jbtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdicionarActionPerformed
+         try{ 
+             
+              produtoGradeView = new ProdutoGradeView(new java.awt.Frame(), true, 
+                      produtoSalvarGrade, null, "adicionar");
+              produtoGradeView.setLocationRelativeTo(null);
+              produtoGradeView.setTitle("Adicionando grade de produto");
+              produtoGradeView.setVisible(true); 
+           }catch(Exception e){
+               JOptionPane.showMessageDialog(null, "Ocorreu um problema, ao abrir cadastro de grade.");
+              
+           }
+    }//GEN-LAST:event_jbtAdicionarActionPerformed
+
+    private void jbtAtualizarGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAtualizarGradeActionPerformed
+        carregaTable();
+        carregarGradeProduto(this.produtoSalvarGrade);
+        this.amodelGradeItens.setNumRows(0);
+    }//GEN-LAST:event_jbtAtualizarGradeActionPerformed
+
+    private void jTableGradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableGradeMouseClicked
+        this.produtoGrade = new ProdutoGrade();
+        this.amodelGradeItens = (DefaultTableModel) jTableGradeItens.getModel();
+        this.amodelGradeItens.setNumRows(0);
+        Long id = (Long) jTableGrade.getValueAt(jTableGrade.getSelectedRow(), 1);
+        System.out.println("Id grade :"+ jTableGrade.getValueAt(jTableGrade.getSelectedRow(), 1));
+        try{
+            for (ProdutoGrade pg : this.produtoSalvarGrade.getListaGrade()) {
+                if (id == pg.getId()){
+                    this.produtoGrade = pg;
+                   for (ProdutoGradeItens pgi : pg.getListaGradeItens()){     
+                    
+                    this.amodelGradeItens.addRow(new Object[]{pgi.getAtributo(), 
+                    pgi.getEstoqueMinimo(), pgi.getEstoque()});
+                   }
+                   break;
+                }
+            }
+            jbtEditarGrade.setEnabled(true);  
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Problemas ao carregar itens da grade.");
+        }
+        
+    }//GEN-LAST:event_jTableGradeMouseClicked
 
     public Produto carregaObjeto(){
         
@@ -1641,6 +1862,10 @@ public class ProdutoView extends javax.swing.JFrame {
         //jPanel7.setVisible(false);
         jcheckGrade.setSelected(false);
         habilitarPreco(false);
+        DefaultTableModel amodelGrade = (DefaultTableModel) jTableGrade.getModel();
+        amodelGrade.setNumRows(0);
+        DefaultTableModel amodelGradeItens = (DefaultTableModel) jTableGradeItens.getModel();
+        amodelGradeItens.setNumRows(0);
 //        jtfUltimoValorCompra.setText("");
 //        jtfModelo.setText("");
     }
@@ -1686,6 +1911,22 @@ public class ProdutoView extends javax.swing.JFrame {
              ex.printStackTrace();
         }
     }
+    
+    private void  carregarGradeProduto(Produto produto) {
+        DefaultTableModel amodelGrade = (DefaultTableModel) jTableGrade.getModel();
+        amodelGrade.setNumRows(0);      
+        try{
+                                
+            for (ProdutoGrade pg : produto.getListaGrade()) {                
+                amodelGrade.addRow(new Object[]{pg.getGrade(), pg.getId()});
+            }
+            
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Problema ao carregar tabela de grade"+e.getMessage());
+            e.printStackTrace();
+        }
+        
+    }
 
     
     
@@ -1712,6 +1953,7 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1720,10 +1962,17 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableGrade;
+    private javax.swing.JTable jTableGradeItens;
+    private javax.swing.JButton jbtAdicionar;
+    private javax.swing.JButton jbtAtualizarGrade;
     private javax.swing.JButton jbtCancelar;
+    private javax.swing.JButton jbtEditarGrade;
     private javax.swing.JButton jbtExcluir;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JButton jbtSair;

@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/cadastroView/ColaboradorView.java</file>
-            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/menuView/Menu.java</file>
-            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/relatoriosView/VendaPorClienteView.java</file>
-            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/relatoriosView/ImprimeRelatorio.java</file>
-            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/relatoriosView/venda/categoria/RelVendaPorCategoriaProdView.java</file>
-            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/relatoriosView/venda/mes/RelatorioVendaMesView.java</file>
-            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/cadastroView/ClienteView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/cadastroView/ProdutoView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/loginView/LoginView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/dao/ProdutoDAO.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/cadastroView/ProdutoGradeView.java</file>
+            <file>file:/home/daniel/NetBeansProjects/Sisdb-Roupas/src/dao/ProdutoGradeDAO.java</file>
         </group>
     </open-files>
 </project-private>

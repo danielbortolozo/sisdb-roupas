@@ -9,13 +9,17 @@ import com.sun.istack.internal.NotNull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -78,6 +82,11 @@ public class Produto implements Serializable{
     @Column(name = "vl_venda_atacado")
     private float vlVendaAtacado;
 
+    
+    @OneToMany(mappedBy = "produto", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    private List<ProdutoGrade> listaGrade;
+    
+    
     public Produto() {
     }
 
@@ -269,6 +278,14 @@ public class Produto implements Serializable{
 
     public void setGrade(boolean grade) {
         this.grade = grade;
+    }
+
+    public List<ProdutoGrade> getListaGrade() {
+        return listaGrade;
+    }
+
+    public void setListaGrade(List<ProdutoGrade> listaGrade) {
+        this.listaGrade = listaGrade;
     }
 
    

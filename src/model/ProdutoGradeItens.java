@@ -26,17 +26,26 @@ public class ProdutoGradeItens {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     
-    private String tamanho;
+    private String atributo;
     private float estoque;
+    private float estoqueMinimo;
    
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_produto_grade", referencedColumnName = "id",
              foreignKey = @ForeignKey(name="fk_produtoGrade_produtoGradeItens"))
     private ProdutoGrade produtoGrade;
 
+    public ProdutoGradeItens(String atributo, float estoque, float estoqueMinimo, Long id) {
+        this.atributo = atributo;
+        this.estoque = estoque;
+        this.estoqueMinimo = estoqueMinimo;
+        this.id = id;
+    }
+
     public ProdutoGradeItens() {
     }
-    
+
+       
     public Long getId() {
         return id;
     }
@@ -45,12 +54,12 @@ public class ProdutoGradeItens {
         this.id = id;
     }
 
-    public String getTamanho() {
-        return tamanho;
+    public String getAtributo() {
+        return atributo;
     }
 
-    public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
+    public void setAtributo(String atributo) {
+        this.atributo = atributo;
     }
 
     public float getEstoque() {
@@ -68,12 +77,14 @@ public class ProdutoGradeItens {
     public void setProdutoGrade(ProdutoGrade produtoGrade) {
         this.produtoGrade = produtoGrade;
     }
+
+    public float getEstoqueMinimo() {
+        return estoqueMinimo;
+    }
+
+    public void setEstoqueMinimo(float estoqueMinimo) {
+        this.estoqueMinimo = estoqueMinimo;
+    }
     
-    
-    
-    
-    
-    
-    
-    
+        
 }
