@@ -6,8 +6,12 @@
 package dao;
 
 import conexao.JPAUtil;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 
 import model.BancoMovimento;
@@ -17,7 +21,7 @@ import model.BancoMovimento;
  * @author root
  */
 public class BancoMovimentoDAO {
-    
+    EntityManager manager;
     public void salvar(BancoMovimento bancoMov){
         EntityManager manager = JPAUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
@@ -40,22 +44,34 @@ public class BancoMovimentoDAO {
         tx.commit();
         manager.close();        
     }
-//    public BancoMovimento bancoMovimento(int idBanco){
-//        EntityManager manager = JPAUtil.getEntityManager();        
-//        Query query = null;
-//        float saldo = 0;
-//         try{
-//           query = manager.createQuery("Select bm.saldo FROM BancoMovimento bm where bm.idBanco = :idBanco");  
-//	   query.setParameter("idBanco", idBanco);     
-//	   
-//           BancoMovimento b = new BancoMovimento();
-//           b = (BancoMovimento) query.getSingleResult();
-//        }catch (Exception ex){
-//            JOptionPane.showMessageDialog(null, "Erro ao executar o sql! Error:"+ex.getMessage());
-//        }   
-//	return b;        
-//        
-//    }
+    public BancoMovimento bancoMovimento(int idBanco){
+        EntityManager manager = JPAUtil.getEntityManager();        
+        Query query = null;
+        float saldo = 0;
+         BancoMovimento bm = new BancoMovimento();
+         try{
+           query = manager.createQuery("Select bm.saldo FROM BancoMovimento bm where bm.idBanco = :idBanco and ");  
+	   query.setParameter("idBanco", idBanco);     
+	   
+          
+           bm = (BancoMovimento) query.getSingleResult();
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao executar o sql! Error:"+ex.getMessage());
+        }   
+	return bm;        
+        
+    }
+    
+     public List<BancoMovimento> listaPorPeriodoMovimentoConta(Date dtIni, Date dtFim, Long idBanco) {
+        manager = JPAUtil.getEntityManager();
+        String jpql = "SELECT bm FROM BancoMovimento bm WHERE bm.dtLancamento BETWEEN :dtIni AND :dtFim AND bm.idBanco = :idBanco";
+        return this.manager.createQuery(jpql, BancoMovimento.class)
+        .setParameter("dtIni", dtIni)
+        .setParameter("dtFim", dtFim)
+        .setParameter("idBanco", idBanco)        
+        .getResultList();
+    }
+    
     
 //     public Collection<VendaCab> listVendaReceberDia(Date vencimento){  
 //        EntityManager manager = JPAUtil.getEntityManager();        

@@ -21,7 +21,7 @@ public class GerarChaveLic {
         //criptografia("meu texto");
         //System.out.println("Criptografia ="+criptografia("meu texto"));
         //GERADO PARA CAIO RUIZ DIA 01/08/2018. CHAVE = 20190115
-        String crp = criptografia("20200530");
+        String crp = criptografia("20200830");
         System.out.println("Criptografia : "+crp);
      //   System.out.println("Descriptografa ="+descriptografa(crpb));
  //       int descr = (Integer.parseInt(descriptografa(crpb)));

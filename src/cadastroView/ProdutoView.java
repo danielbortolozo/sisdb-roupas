@@ -145,7 +145,8 @@ public class ProdutoView extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableGradeItens = new javax.swing.JTable();
         jbtAdicionar = new javax.swing.JButton();
-        jbtAtualizarGrade = new javax.swing.JButton();
+        jbtExcluirGrade = new javax.swing.JButton();
+        jbtRefreshGrade = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jbtNovo = new javax.swing.JButton();
         jbtExcluir = new javax.swing.JButton();
@@ -224,7 +225,9 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jtfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane2)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 839, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -547,7 +550,7 @@ public class ProdutoView extends javax.swing.JFrame {
                                                 .addComponent(jLabel3)))
                                         .addGap(332, 332, 332))
                                     .addComponent(jtfDescricao))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jcbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -727,7 +730,7 @@ public class ProdutoView extends javax.swing.JFrame {
                                             .addComponent(jtfValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(jLabel22)
                             .addComponent(jtfPorcentagemAtacado, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(408, Short.MAX_VALUE))
+                .addContainerGap(378, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -867,11 +870,19 @@ public class ProdutoView extends javax.swing.JFrame {
             }
         });
 
-        jbtAtualizarGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Sync.png"))); // NOI18N
-        jbtAtualizarGrade.setText("Refresh");
-        jbtAtualizarGrade.addActionListener(new java.awt.event.ActionListener() {
+        jbtExcluirGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/delete.png"))); // NOI18N
+        jbtExcluirGrade.setText("Excluir");
+        jbtExcluirGrade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtAtualizarGradeActionPerformed(evt);
+                jbtExcluirGradeActionPerformed(evt);
+            }
+        });
+
+        jbtRefreshGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Sync.png"))); // NOI18N
+        jbtRefreshGrade.setText("Refresh");
+        jbtRefreshGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtRefreshGradeActionPerformed(evt);
             }
         });
 
@@ -880,15 +891,21 @@ public class ProdutoView extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jbtEditarGrade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtAtualizarGrade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jbtAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jbtExcluirGrade, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addComponent(jbtEditarGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtRefreshGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -898,8 +915,10 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtEditarGrade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtAtualizarGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addComponent(jbtExcluirGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtRefreshGrade)
+                .addContainerGap(112, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
@@ -912,9 +931,7 @@ public class ProdutoView extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("GRADE PRODUTO", jPanel8);
@@ -996,7 +1013,7 @@ public class ProdutoView extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jbtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
                 .addComponent(jbtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1019,11 +1036,10 @@ public class ProdutoView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1708,18 +1724,12 @@ public class ProdutoView extends javax.swing.JFrame {
            }
     }//GEN-LAST:event_jbtAdicionarActionPerformed
 
-    private void jbtAtualizarGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAtualizarGradeActionPerformed
-        carregaTable();
-        carregarGradeProduto(this.produtoSalvarGrade);
-        this.amodelGradeItens.setNumRows(0);
-    }//GEN-LAST:event_jbtAtualizarGradeActionPerformed
-
     private void jTableGradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableGradeMouseClicked
         this.produtoGrade = new ProdutoGrade();
         this.amodelGradeItens = (DefaultTableModel) jTableGradeItens.getModel();
         this.amodelGradeItens.setNumRows(0);
         Long id = (Long) jTableGrade.getValueAt(jTableGrade.getSelectedRow(), 1);
-        System.out.println("Id grade :"+ jTableGrade.getValueAt(jTableGrade.getSelectedRow(), 1));
+      
         try{
             for (ProdutoGrade pg : this.produtoSalvarGrade.getListaGrade()) {
                 if (id == pg.getId()){
@@ -1738,6 +1748,17 @@ public class ProdutoView extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jTableGradeMouseClicked
+
+    private void jbtExcluirGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirGradeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtExcluirGradeActionPerformed
+
+    private void jbtRefreshGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRefreshGradeActionPerformed
+        
+       
+        carregaTable();
+        
+    }//GEN-LAST:event_jbtRefreshGradeActionPerformed
 
     public Produto carregaObjeto(){
         
@@ -1895,6 +1916,8 @@ public class ProdutoView extends javax.swing.JFrame {
         jtfPorcentagemAtacado.setEnabled(habilitar);
         jtfValorAtacado.setEnabled(habilitar);
         jcheckGrade.setEnabled(habilitar);
+        jbtExcluirGrade.setEnabled(habilitar);
+        jbtEditarGrade.setEnabled(habilitar);
     } 
     private void carregaTable(){
         DefaultTableModel amodel = (DefaultTableModel) jTable1.getModel();
@@ -1967,14 +1990,15 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTableGrade;
-    private javax.swing.JTable jTableGradeItens;
+    public static javax.swing.JTable jTableGrade;
+    public static javax.swing.JTable jTableGradeItens;
     private javax.swing.JButton jbtAdicionar;
-    private javax.swing.JButton jbtAtualizarGrade;
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtEditarGrade;
     private javax.swing.JButton jbtExcluir;
+    private javax.swing.JButton jbtExcluirGrade;
     private javax.swing.JButton jbtNovo;
+    private javax.swing.JButton jbtRefreshGrade;
     private javax.swing.JButton jbtSair;
     private javax.swing.JButton jbtSalvar;
     private javax.swing.JComboBox jcbCategoria;

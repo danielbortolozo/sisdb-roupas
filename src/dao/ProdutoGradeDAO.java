@@ -52,4 +52,19 @@ public class ProdutoGradeDAO {
         tx.commit();
         manager.close();                       
     }     
+    
+     public void excluirItemGrade(Long id){
+        EntityManager manager = JPAUtil.getEntityManager();
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+            
+        ProdutoGradeItens produtoGradeIten = manager.find(ProdutoGradeItens.class, id);
+        
+        manager.remove(produtoGradeIten);
+        
+        tx.commit();
+        manager.close();
+    }
+    
+    
 }

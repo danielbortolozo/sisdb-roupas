@@ -5,7 +5,7 @@
  */
 package model;
 
-import com.sun.istack.internal.NotNull;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;

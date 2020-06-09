@@ -18,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
 import model.PedidoItens;
 import model.PedidoTrocaPresenteItens;
 import model.Produto;
+import model.ProdutoGrade;
+import model.ProdutoGradeItens;
 import util.JTableFonteColunaDireitaAzul;
 
 /**
@@ -37,6 +39,7 @@ public class PedidoDetalheView extends javax.swing.JDialog {
     public static String codProduto;
     public static String configPesquisa;
     String tipoPedido;
+    ProdutoGradeItens produtoGradeItem;
     
     public PedidoDetalheView(java.awt.Frame parent, boolean modal, String codigoProduto, String tipoPedido, String configPesquisaProduto) {
         super(parent, modal);
@@ -52,7 +55,9 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         vlcomplemento = 0;
   //        jlCodProdMeia.setVisible(false);
   //      jlDescProdMeia.setVisible(false);
-        this.tipoPedido = tipoPedido;        
+        this.tipoPedido = tipoPedido;  
+        habilitarGrade(false);   
+        jbtAdicionar.setEnabled(false);
         
        EventQueue queuePedidoDet = new EventQueue(){
            protected void dispatchEvent(final AWTEvent event){
@@ -120,7 +125,12 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         
        
     }
-
+    private void habilitarGrade(boolean habilita){
+        jlGrade.setVisible(habilita);
+        jlGradeItem.setVisible(habilita);
+        jcbGrade.setVisible(habilita);
+        jcbGradeItem.setVisible(habilita);
+    }
    
 
     private void iniciar() throws NumberFormatException {
@@ -209,6 +219,10 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jrbAtacado = new javax.swing.JRadioButton();
         jrbVarejo = new javax.swing.JRadioButton();
+        jcbGrade = new javax.swing.JComboBox<>();
+        jlGradeItem = new javax.swing.JLabel();
+        jcbGradeItem = new javax.swing.JComboBox<>();
+        jlGrade = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jbtAdicionar = new javax.swing.JButton();
@@ -252,11 +266,11 @@ public class PedidoDetalheView extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jtfCodigoProduto, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jlDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jlPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,7 +300,7 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel3.setText("QUANTIDADE");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("VENDA TIPO"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("TIPO PEDIDO"));
 
         buttonGroup1.add(jrbAtacado);
         jrbAtacado.setText("ATACADO");
@@ -311,7 +325,7 @@ public class PedidoDetalheView extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jrbVarejo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jrbAtacado)
                 .addContainerGap())
         );
@@ -322,8 +336,23 @@ public class PedidoDetalheView extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jrbVarejo)
                     .addComponent(jrbAtacado))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jcbGrade.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jcbGrade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbGradeKeyPressed(evt);
+            }
+        });
+
+        jlGradeItem.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jlGradeItem.setText("GRADE ITEM");
+
+        jcbGradeItem.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+
+        jlGrade.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jlGrade.setText("GRADE");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -331,23 +360,37 @@ public class PedidoDetalheView extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                    .addComponent(jtfQuantidade))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                    .addComponent(jtfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(260, 260, 260)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(jcbGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcbGradeItem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jlGradeItem, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jlGrade)
+                    .addComponent(jlGradeItem))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jcbGrade)
+                    .addComponent(jcbGradeItem, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jtfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -384,10 +427,9 @@ public class PedidoDetalheView extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jbtAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbtAdicionar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jButton1))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -457,6 +499,7 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         DefaultTableModel amodelBalcao = null;
         DefaultTableModel amodelDelivery = null; 
        
+        // vendo qual é o formulario a ser preenchido. 
         if (tipoPedido.equals("BALCAO"))
            amodelBalcao = (DefaultTableModel) PedidoView.jTable1.getModel();
         else
@@ -544,39 +587,14 @@ public class PedidoDetalheView extends javax.swing.JDialog {
            PedidoView1.jbtPagamento.setEnabled(true);
         }else
             if(tipoPedido.equals("BALCAO")){
-               
-                //Passando o Total para a variável subtotal de PedidoView.            
-               PedidoView.subtotal = (PedidoView.subtotal + total);        
-               PedidoView.jtfSubTotal.setText(new DecimalFormat("#,##0.00").format(PedidoView.subtotal));
-               PedidoView.jtfSubTotal.setEnabled(true);
-               String tipoVenda = null;
-           
-               if (jrbVarejo.isSelected())
-                  tipoVenda = "V";
-               else
-                  if (jrbAtacado.isSelected())
-                      tipoVenda = "A";                      
-               //Adicionando Campos na JTable de PedidoView.
-               String totalStr = null;
-               //totalStr = String.valueOf(total);
-               totalStr = (new DecimalFormat("#,##0.00").format(total));
-               
-               amodelBalcao.addRow(new Object[]{qtd,produto.getUnidade().getSigla(), descricao, vlunit, totalStr, produto.getId(), tipoVenda});
-        
-               PedidoView.jTable1.getColumnModel().getColumn(3).setCellRenderer(new JTableFonteColunaDireitaAzul());
-               PedidoView.jTable1.getColumnModel().getColumn(4).setCellRenderer(new JTableFonteColunaDireitaAzul());
-               //Mensagem Caixa
-               if (PedidoView.jlStatusCaixa.getText().equals("CAIXA LIVRE")){
-                   PedidoView.jlStatusCaixa.setText("CAIXA OCUPADO");
-                   PedidoView.jlStatusCaixa.setForeground(Color.red);
-               } 
-                //Habilitar Campos PedidoView
-                //PedidoView1.jtfCliente.setEnabled(true);
-                PedidoView.jtfObs.setEnabled(true);
-              //  PedidoView1.jbtCliente.setEnabled(true);
-                // PedidoView.jbtConfig.setEnabled(false);
-                PedidoView.jbtPagamento.setEnabled(true);
-                PedidoView.jtfCodProd.setText("");                
+                   
+               if (produto.isGrade()){
+                  
+                   jcbGrade.requestFocus();
+                   return;
+               }else {                
+                      adicionarPedidoView(amodelBalcao, descricao);
+               }
             }
             else           
             if (tipoPedido.equals("DELIVERY")){
@@ -669,14 +687,56 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jbtAdicionarActionPerformed
 
+    private void adicionarPedidoView(DefaultTableModel amodelBalcao, String descricao) {
+        PedidoView.subtotal = (PedidoView.subtotal + total);
+        PedidoView.jtfSubTotal.setText(new DecimalFormat("#,##0.00").format(PedidoView.subtotal));
+        PedidoView.jtfSubTotal.setEnabled(true);
+        String tipoVenda = null;
+        
+        if (jrbVarejo.isSelected())
+            tipoVenda = "V";
+        else
+            if (jrbAtacado.isSelected())
+                tipoVenda = "A";
+        //Adicionando Campos na JTable de PedidoView.
+        String totalStr = null;
+        //totalStr = String.valueOf(total);
+        totalStr = (new DecimalFormat("#,##0.00").format(total));
+        
+        amodelBalcao.addRow(new Object[]{qtd,produto.getUnidade().getSigla(), descricao, vlunit, totalStr, produto.getId(), tipoVenda});
+        
+        PedidoView.jTable1.getColumnModel().getColumn(3).setCellRenderer(new JTableFonteColunaDireitaAzul());
+        PedidoView.jTable1.getColumnModel().getColumn(4).setCellRenderer(new JTableFonteColunaDireitaAzul());
+        //Mensagem Caixa
+        if (PedidoView.jlStatusCaixa.getText().equals("CAIXA LIVRE")){
+            PedidoView.jlStatusCaixa.setText("CAIXA OCUPADO");
+            PedidoView.jlStatusCaixa.setForeground(Color.red);
+        }
+        //Habilitar Campos PedidoView
+        //PedidoView1.jtfCliente.setEnabled(true);
+        PedidoView.jtfObs.setEnabled(true);
+        //  PedidoView1.jbtCliente.setEnabled(true);
+        // PedidoView.jbtConfig.setEnabled(false);
+        PedidoView.jbtPagamento.setEnabled(true);
+        PedidoView.jtfCodProd.setText("");
+    }
+
     private void jtfQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfQuantidadeKeyPressed
        if (evt.getKeyCode() == evt.VK_ENTER){
          
-              jbtAdicionarActionPerformed(null);              
-         
+           if (produto.isGrade()) {
+               carregarComboboxGrade();               
+               if (jtfQuantidade.getText().equals(""))
+                  jtfQuantidade.setText("1");
+               jcbGrade.requestFocus();
+           }else {    
+                 jbtAdicionar.setEnabled(true);
+                 jbtAdicionarActionPerformed(null);              
+           }
        }
     }//GEN-LAST:event_jtfQuantidadeKeyPressed
 
+    
     private void jrbVarejoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbVarejoActionPerformed
         
         if (jrbVarejo.isSelected()){
@@ -709,6 +769,37 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jbtAdicionarKeyPressed
 
+    private void jcbGradeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbGradeKeyPressed
+         if (evt.getKeyCode() == evt.VK_ENTER){
+           
+             carregarComboboxItemGrade(this.produto.getListaGrade()
+                     .get(jcbGrade.getSelectedIndex()));
+             
+             jcbGradeItem.requestFocus();
+             
+        }
+    }//GEN-LAST:event_jcbGradeKeyPressed
+
+    private void carregarComboboxGrade(){
+         jcbGrade.removeAllItems();
+         if (this.produto.getListaGrade().isEmpty()){
+             JOptionPane.showMessageDialog(null, "Produto de grade, está sem grade");
+             return;
+         }
+         for (ProdutoGrade pGrade : this.produto.getListaGrade()){
+             jcbGrade.addItem(pGrade.getGrade());
+         }
+         habilitarGrade(true);
+    }
+    
+    private void carregarComboboxItemGrade(ProdutoGrade produtoGrade){
+        
+        jcbGradeItem.removeAllItems();
+        for (ProdutoGradeItens pGradeI : produtoGrade.getListaGradeItens()){
+            jcbGradeItem.addItem(pGradeI.getAtributo());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -761,7 +852,11 @@ public class PedidoDetalheView extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JButton jbtAdicionar;
+    private javax.swing.JComboBox<String> jcbGrade;
+    private javax.swing.JComboBox<String> jcbGradeItem;
     private javax.swing.JLabel jlDescricao;
+    private javax.swing.JLabel jlGrade;
+    private javax.swing.JLabel jlGradeItem;
     public static javax.swing.JLabel jlPreco;
     private javax.swing.JRadioButton jrbAtacado;
     private javax.swing.JRadioButton jrbVarejo;

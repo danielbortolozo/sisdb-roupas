@@ -326,10 +326,9 @@ public class PesquisaProdutoView extends javax.swing.JDialog {
       
         PedidoDetalheView pedidoDet = new PedidoDetalheView(new java.awt.Frame(), true, idProduto, this.tipoPedido, null);        
         pedidoDet.setLocationRelativeTo(null);
-        pedidoDet.setBounds(350, 350, 950, 280);        
+      //  pedidoDet.setBounds(350, 350, 950, 280);        
         this.setVisible(false);
-        pedidoDet.setVisible(true);       
-      
+        pedidoDet.setVisible(true);         
         dispose();      
         
     }//GEN-LAST:event_jTable1MouseClicked

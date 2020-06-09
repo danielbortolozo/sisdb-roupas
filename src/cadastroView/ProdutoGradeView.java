@@ -28,10 +28,13 @@ public class ProdutoGradeView extends javax.swing.JDialog {
     private ProdutoGrade produtoGrade;
     private Produto produto;
     String tipoBotao;
+    List<ProdutoGradeItens> listaItensGrade;
     public ProdutoGradeView(java.awt.Frame parent, boolean modal, Produto produto, 
     ProdutoGrade produtoGrade, String tipoBotao) {
         super(parent, modal);
         initComponents();        
+        this.produtoGrade = new ProdutoGrade();
+        this.produto = new Produto();
         jlProduto.setText(produto.getDescricao());
         if (tipoBotao.equals("adicionar")) {
             jbtExcluir.setEnabled(false);
@@ -41,7 +44,7 @@ public class ProdutoGradeView extends javax.swing.JDialog {
             if (tipoBotao.equals("alterar")){
                 DefaultTableModel amodel = (DefaultTableModel) jTable1.getModel();
                 amodel.setNumRows(0);
-                this.produtoGrade = new ProdutoGrade();
+                
                 this.produtoGrade = produtoGrade;
                 jtfGrade.setText(this.produtoGrade.getGrade());
                 
@@ -56,6 +59,7 @@ public class ProdutoGradeView extends javax.swing.JDialog {
         jbtSalvar.setEnabled(true);
         this.produto = produto;
         this.tipoBotao = tipoBotao;
+        
         
     }
 
@@ -249,9 +253,14 @@ public class ProdutoGradeView extends javax.swing.JDialog {
             }
         });
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(250);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(240);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
             jTable1.getColumnModel().getColumn(3).setResizable(false);
@@ -287,18 +296,42 @@ public class ProdutoGradeView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        if (javax.swing.JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir este Produto?", "ATENÇÂO ", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
+        if (javax.swing.JOptionPane.showConfirmDialog(null, "Deseja realmente excluir"
+                + " este item?", "ATENÇÂO ", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
 
-            //            ProdutoDAO produtoDAO = new ProdutoDAO();
-            //            try{
-                //                produtoDAO.excluir(Long.parseLong(jtfCodigo.getText()));
-                //                JOptionPane.showMessageDialog(null, "Produto Excluído com Sucesso !!!");
-                //                jbtCancelarActionPerformed(evt);
-                //            }catch (Exception e){
-                //                JOptionPane.showMessageDialog(null, "Este Produto não pode ser Excluído. Problemas com chaves Estrangeiras. "+e.getMessage());
-                //            }
+            ProdutoGradeDAO gradeDAO = new ProdutoGradeDAO();
+            Long idProdutoGradeItens = 0L;
+            DefaultTableModel amodelProdutoGradeItens; 
+            idProdutoGradeItens = (Long) jTable1.getValueAt(jTable1.getSelectedRow(), 3);
+            try{
+                gradeDAO.excluirItemGrade(idProdutoGradeItens);
+                ((DefaultTableModel) jTable1.getModel()).removeRow(jTable1.getSelectedRow());
+                atualizarProdutoViewGradeItens();
+                jbtExcluir.setEnabled(false);
+                JOptionPane.showMessageDialog(null, "Item excluído da grade com sucesso !!!");                
+            }catch (Exception e){
+                    JOptionPane.showMessageDialog(null, "Este item não pode ser Excluído. Problemas com chaves Estrangeiras. "+e.getMessage());
+            }
+                        
         }
     }//GEN-LAST:event_jbtExcluirActionPerformed
+
+    private void atualizarProdutoViewGradeItens() {
+        DefaultTableModel amodelProdutoGradeItens;
+        amodelProdutoGradeItens = (DefaultTableModel) ProdutoView.jTableGradeItens.getModel();
+        amodelProdutoGradeItens.setNumRows(0);
+        for (int i = 0; i < jTable1.getRowCount(); i++){
+            amodelProdutoGradeItens.addRow(new Object[]{jTable1.getValueAt(i, 0),
+                jTable1.getValueAt(i, 1), jTable1.getValueAt(i, 2) });
+        }
+    }
+     private void atualizarProdutoViewGrade() {
+        DefaultTableModel amodelProdutoGrade;
+        amodelProdutoGrade = (DefaultTableModel) ProdutoView.jTableGrade.getModel();
+        
+        amodelProdutoGrade.addRow(new Object[]{ jtfGrade.getText()});
+        
+    }
 
     private void jbtExcluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtExcluirKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER){
@@ -335,7 +368,7 @@ public class ProdutoGradeView extends javax.swing.JDialog {
             if (!"Linux".equals(op))
             dispose();
 
-            menuView.Menu.jmenuProduto.setEnabled(true);
+            
         }
     }//GEN-LAST:event_jbtSairKeyPressed
 
@@ -348,6 +381,7 @@ public class ProdutoGradeView extends javax.swing.JDialog {
                 daoGrade.salvar(produtoGrade);
                  JOptionPane.showMessageDialog(null, "Grade salva com sucesso.");
                  jbtAtributosGrade.setEnabled(false);
+               
                  jtfGrade.requestFocus();
                  limpar();
             } else {
@@ -358,7 +392,7 @@ public class ProdutoGradeView extends javax.swing.JDialog {
                 }
             }        
          }catch (Exception e){
-             JOptionPane.showMessageDialog(null, "Problemas ao salvar grade do produto.");
+             JOptionPane.showMessageDialog(null, "Problemas ao salvar grade do produto.Error: "+e.getMessage());
          }                
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
@@ -366,7 +400,7 @@ public class ProdutoGradeView extends javax.swing.JDialog {
         String atributo;
          float estoque = 0;
          float estoqueMin = 0;        
-         List<ProdutoGradeItens> listaItensGrade = new ArrayList<>();
+         listaItensGrade = new ArrayList<>();
          
          if (jtfGrade.getText().equals("") || jtfGrade.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "O campo: (grade) não pode, ser nullo ou vazio.");
@@ -382,13 +416,12 @@ public class ProdutoGradeView extends javax.swing.JDialog {
              
             listaItensGrade.add(new ProdutoGradeItens(atributo, estoque, estoqueMin, id));
          }         
-         System.out.println("lista add ="+listaItensGrade.size());
+         
          
         // this.produtoGrade = new ProdutoGrade();
          this.produtoGrade.setGrade(jtfGrade.getText().toUpperCase());
          this.produtoGrade.setProduto(this.produto);
          this.produtoGrade.setListaGradeItens(listaItensGrade);
-         System.out.println("lista produtograde ..."+this.produtoGrade.getListaGradeItens().size());
     }
     
     
@@ -435,6 +468,12 @@ public class ProdutoGradeView extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_jbtAtributosGradeActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+                
+        jbtExcluir.setEnabled(true);
+        
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

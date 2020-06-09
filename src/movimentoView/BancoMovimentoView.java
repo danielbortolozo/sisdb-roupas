@@ -620,9 +620,12 @@ public class BancoMovimentoView extends javax.swing.JInternalFrame {
         amodel.setNumRows(0);
         
         float saldo = 0;
-     
-        for(BancoMovimento bm : banco.getBancoMovimentoList()){           
+        int cont = 0;
+       
+        for(BancoMovimento bm : banco.getBancoMovimentoList()){ 
+                     
            amodel.addRow(new Object[]{sdf.format(bm.getDtLancamento()), bm.getVlEntrada(), bm.getVlSaida(), bm.getSaldo(), bm.getObs()});                
+           
         }      
         
         jTable1.getColumnModel().getColumn(1).setCellRenderer(new JTableFonteColunaDireitaAzul());    
