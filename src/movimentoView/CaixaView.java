@@ -240,7 +240,7 @@ public class CaixaView extends javax.swing.JDialog {
             jbtAbrirCaixa.setVisible(true);
             jbtFechaCaixa.setVisible(false);
             
-            this.setBounds(0, 0, 180, 460); //560                
+            this.setBounds(0, 0, 180, 470); //560                
         }
     }
 

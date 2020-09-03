@@ -40,12 +40,16 @@ public class PedidoDetalheView extends javax.swing.JDialog {
     public static String configPesquisa;
     String tipoPedido;
     ProdutoGradeItens produtoGradeItem;
+    boolean produtoDiverso;
     
     public PedidoDetalheView(java.awt.Frame parent, boolean modal, String codigoProduto, String tipoPedido, String configPesquisaProduto) {
         super(parent, modal);
         initComponents();
         idProduto = codigoProduto;
+        jtfDescricao.setVisible(false);
+        produtoDiverso = false;
         
+        jlDescricao.setSize(638, 42);
         configPesquisa = configPesquisaProduto;
         
         iniciar();
@@ -154,15 +158,22 @@ public class PedidoDetalheView extends javax.swing.JDialog {
                    jLabel1.setText("CÓD. INTERNO");
                    jtfCodigoProduto.setText(produto.getCod_interno()); 
                 }else
-                    if (configPesquisa.equals("CODIGOBARRAS")){
-                        System.out.println("estou no cod barras");
+                    if (configPesquisa.equals("CODIGOBARRAS")){                        
                        produto = produtoDAO.produtoCodBarras(idProd);
                        jLabel1.setText("CÓD. BARRAS");
                        jtfCodigoProduto.setText(produto.getCodBarras()); 
                        // jbtAdicionarActionPerformed(null);
                     }
-        if (produto.getDescricao().equals("DIVERSOS")){
+        if (produto.getDescricao().trim().equals("DIVERSOS")){
+            produtoDiverso = true;
+            jlDescricao.setVisible(false);
+            jlDescricao.setText("DIVERSOS");
+            jtfDescricao.setVisible(true);
+            jtfDescricao.setText("DIVERSOS");            
+            jtfDescricao.setSize(438, 42);
            jLabel3.setText("R$ VALOR");
+        } else {
+           jlDescricao.setSize(438, 42); 
         }
        
 //
@@ -194,7 +205,10 @@ public class PedidoDetalheView extends javax.swing.JDialog {
       
         jrbVarejo.setSelected(true);
         
-        jtfQuantidade.requestFocus();
+        if (!produto.getDescricao().equals("DIVERSOS"))
+           jtfQuantidade.requestFocus();
+        else
+            jtfDescricao.requestFocus();
 
 }
 
@@ -213,6 +227,7 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         jtfCodigoProduto = new javax.swing.JTextField();
         jlDescricao = new javax.swing.JLabel();
         jlPreco = new javax.swing.JLabel();
+        jtfDescricao = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jtfQuantidade = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -257,6 +272,18 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         jlPreco.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlPreco.setText("Preco");
 
+        jtfDescricao.setToolTipText("");
+        jtfDescricao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfDescricaoFocusLost(evt);
+            }
+        });
+        jtfDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfDescricaoKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -266,11 +293,13 @@ public class PedidoDetalheView extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jtfCodigoProduto, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(jlDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jtfDescricao)
+                .addGap(18, 18, 18)
                 .addComponent(jlPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,13 +310,19 @@ public class PedidoDetalheView extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlPreco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jlPreco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jtfQuantidade.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jtfQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtfQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfQuantidadeActionPerformed(evt);
+            }
+        });
         jtfQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfQuantidadeKeyTyped(evt);
@@ -372,7 +407,7 @@ public class PedidoDetalheView extends javax.swing.JDialog {
                     .addComponent(jcbGradeItem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jlGradeItem, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 144, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -524,7 +559,7 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         
         
         //Pegando a Quantidade
-        if (!produto.getDescricao().equals("DIVERSOS")){
+        if (produtoDiverso == false){
            if (jtfQuantidade.getText().equals(""))
               qtd = 1;
            else{
@@ -543,6 +578,10 @@ public class PedidoDetalheView extends javax.swing.JDialog {
         }else{
             //Quando o produto for com a descrição Diversos, o campo Quantidade 
             //vira de Valor, utilizamos o campo quantidade em questão de reaproveita o campo.
+            if (jtfQuantidade.getText().equals("") || (jtfQuantidade.getText().equals("0"))){
+               JOptionPane.showMessageDialog(null, "Informação inválida");
+               return;
+           }
             String totalStr = null;
             if (!jtfQuantidade.getText().equals("")){
                totalStr = jtfQuantidade.getText();
@@ -683,7 +722,7 @@ public class PedidoDetalheView extends javax.swing.JDialog {
                    }
         //Chama o Botão de Sair.
         jButton1ActionPerformed(null);  
-        
+       // produtoDiverso = false;
         
     }//GEN-LAST:event_jbtAdicionarActionPerformed
 
@@ -724,6 +763,8 @@ public class PedidoDetalheView extends javax.swing.JDialog {
     private void jtfQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfQuantidadeKeyPressed
        if (evt.getKeyCode() == evt.VK_ENTER){
          
+           
+           
            if (produto.isGrade()) {
                carregarComboboxGrade();               
                if (jtfQuantidade.getText().equals(""))
@@ -779,6 +820,26 @@ public class PedidoDetalheView extends javax.swing.JDialog {
              
         }
     }//GEN-LAST:event_jcbGradeKeyPressed
+
+    private void jtfDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDescricaoKeyPressed
+
+          if (evt.getKeyCode() == evt.VK_ENTER){
+              produto.setDescricao(jtfDescricao.getText());
+             jtfQuantidade.requestFocus();
+          }
+        
+    }//GEN-LAST:event_jtfDescricaoKeyPressed
+
+    private void jtfDescricaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfDescricaoFocusLost
+
+        jtfDescricao.setText(jtfDescricao.getText().toUpperCase());
+        produto.setDescricao(jtfDescricao.getText());
+    }//GEN-LAST:event_jtfDescricaoFocusLost
+
+    private void jtfQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfQuantidadeActionPerformed
+
+       
+    }//GEN-LAST:event_jtfQuantidadeActionPerformed
 
     private void carregarComboboxGrade(){
          jcbGrade.removeAllItems();
@@ -861,6 +922,7 @@ public class PedidoDetalheView extends javax.swing.JDialog {
     private javax.swing.JRadioButton jrbAtacado;
     private javax.swing.JRadioButton jrbVarejo;
     public static javax.swing.JTextField jtfCodigoProduto;
+    private javax.swing.JTextField jtfDescricao;
     public static javax.swing.JTextField jtfQuantidade;
     // End of variables declaration//GEN-END:variables
 

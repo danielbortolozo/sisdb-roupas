@@ -122,6 +122,10 @@ public class Menu extends javax.swing.JFrame {
         jmenuCreditoDiferencaCliente.setVisible(false);
         
         
+        //Desabilitar botão Delivery
+        jbDelivery.setVisible(false);
+        
+        
         
      //   System.out.println("Localizacao ="+localizacao);
     //    System.out.println("Colaborador ="+colaborador.getNome());
