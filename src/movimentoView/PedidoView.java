@@ -277,7 +277,7 @@ public class PedidoView extends javax.swing.JDialog {
         jlNumPedido.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jlCodigoProduto.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jlCodigoProduto.setText("CÓD. PRODUTO 2");
+        jlCodigoProduto.setText("CÓD. PRODUTO ");
 
         jtfCodProd.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         jtfCodProd.setNextFocusableComponent(jbtSair);
